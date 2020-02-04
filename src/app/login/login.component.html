@@ -1,0 +1,11 @@
+<h1>Sign in</h1>
+
+<button mat-raised-button color="primary" (click)="socialSignIn('google')">Signin with Google </button>
+<br><br>
+<button (click)="signOut()">Sinout</button>              
+<!-- <div class="g-signin2" data-onsuccess="socialSignIn"></div> -->
+<div *ngIf=user>
+   <p>name: {{user.name}}</p>
+   <img src="{{user.image}}">
+   <p>Email:{{user.email}}</p>
+</div>
