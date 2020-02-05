@@ -1,4 +1,5 @@
 <p>pdflist works!</p>
+<h3>Welcome <strong>{{userprofile.name}} Here are your books</strong></h3>
 <div *ngFor='let i of books' class="bookcard">    
     <mat-card>
         <mat-card-header>
@@ -9,7 +10,7 @@
         <mat-card-actions>
             <button mat-raised-button color="accent" [routerLink]="['/view',i.bookid]">View </button>
             <button mat-raised-button> Add to shelf</button>
-            <button mat-mini-fab color="warn">
+            <button mat-button>
                 <mat-icon>favorite_border</mat-icon>
             </button>
         </mat-card-actions>
