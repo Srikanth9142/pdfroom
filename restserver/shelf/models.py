@@ -9,8 +9,7 @@ class Book(models.Model):
     author = models.CharField(max_length=150)
     category = models.CharField(max_length=50,null=True)
     
-    
-
-
-
+class Analytic(models.Model):
+    bookid = models.ForeignKey(Book,on_delete=models.CASCADE)
+    email = models.EmailField()
 
