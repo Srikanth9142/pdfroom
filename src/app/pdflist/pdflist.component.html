@@ -1,19 +1,48 @@
 <p>pdflist works!</p>
-<h3>Welcome <strong>{{userprofile.name}} Here are your books</strong></h3>
-<div *ngFor='let i of books' class="bookcard">    
-    <mat-card>
+<!-- <h3>Welcome <strong>{{userprofile.name}} Here are your books</strong></h3> -->
+<mat-slide-toggle
+          [formControl]="showlikes"
+          (change)="onChange()"
+          [color]="accent"
+          [checked]="checked"
+          [disabled]="disabled">
+        LikedBooks
+      </mat-slide-toggle>
+<ng-container *ngIf="!showlikes.value">
+<div  class="bookcard">    
+    <mat-card *ngFor='let i of books'>
         <mat-card-header>
-            <mat-card-title><strong>{{i.name}}</strong></mat-card-title>
+            <mat-card-title ><strong>{{i.name}}</strong></mat-card-title>
             <mat-card-subtitle>{{i.author}}</mat-card-subtitle>
         </mat-card-header>
         <img  mat-card-image src="{{i.coverurl}}" alt="{{i.name}}">
         <mat-card-actions>
             <button mat-raised-button color="accent" [routerLink]="['/view',i.bookid]">View </button>
             <button mat-raised-button> Add to shelf</button>
-            <button mat-button>
+            <button mat-button [color]="getColor(i.bookid)" (click)="send_like($event,i.bookid)">
                 <mat-icon>favorite_border</mat-icon>
             </button>
         </mat-card-actions>
     </mat-card>
     <br>
 </div>
+</ng-container>
+<ng-container *ngIf="showlikes.value">
+    <div *ngFor="let u of userlikedbooks" class="bookcard">
+        <p>{{books[u.bookid-1].name}}</p>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title><strong>{{books[u.bookid-1].name}}</strong></mat-card-title>
+                <mat-card-subtitle>{{books[u.bookid-1].author}}</mat-card-subtitle>
+            </mat-card-header>
+            <img  mat-card-image src="{{books[u.bookid-1].coverurl}}" alt="{{books[u.bookid-1].name}}">
+            <mat-card-actions>
+                <button mat-raised-button color="accent" [routerLink]="['/view',books[u.bookid-1].bookid]">View </button>
+                <!-- <button mat-raised-button> Add to shelf</button>
+                <button mat-button (click)="send_like($event,i.bookid)">
+                    <mat-icon>favorite_border</mat-icon>
+                </button> -->
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-container>

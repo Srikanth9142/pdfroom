@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/book';
+import { LikedBooks } from 'src/app/models/likedbooks';
 import { Observable }from 'rxjs';
 import { DataService }from 'src/app/services/data.service';
 import { take } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-pdflist',
   templateUrl: './pdflist.component.html',
@@ -11,12 +14,43 @@ import { take } from 'rxjs/operators';
 export class PdflistComponent implements OnInit {
   books:Book[];
   userprofile:any;
-
+  userlikedbooks:LikedBooks[]=[];
+  clickedToggle:boolean=false; // when user clicked toggle made this to true and show liked books 
+  private buttonColor:string="primary";
+  showlikes = new FormControl();
   constructor(private dataService:DataService) { }
   getUserDetails(){
     this.dataService.get_userDetails().subscribe(userdetails=>{
       this.userprofile = userdetails;
     });
+  }
+  onChange(){
+    if(this.showlikes.value){
+      this.dataService.viewlikedbooks(this.userprofile.email).subscribe(d=>{
+        this.userlikedbooks = d;
+      });
+    }
+    this.clickedToggle = this.showlikes.value;
+    console.log(this.showlikes.value);
+  }
+  send_like(event,bid:any){
+    this.dataService.store_likes(this.userprofile.email,bid).subscribe(()=>{
+
+    });
+    this.buttonColor = "warn";
+  }
+  getColor(bid:number):string{
+    console.log("function called");
+    if(this.userlikedbooks.length){
+      console.log("checked length");
+    this.userlikedbooks.forEach((d=>{
+      if(d.bookid == bid){
+        console.log("match found");
+        return "warn";
+      }  
+    }))
+    }
+    return "accent";
   }
 
   ngOnInit():void{
@@ -25,6 +59,9 @@ export class PdflistComponent implements OnInit {
 
     });
     this.getUserDetails();
+    this.dataService.viewlikedbooks(this.userprofile.email).subscribe(d=>{
+      this.userlikedbooks = d;
+    });
   }
 
 }

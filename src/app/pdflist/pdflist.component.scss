@@ -1,12 +1,18 @@
 .bookcard{
     max-width: 300px;
     margin-left: 30px;
-    
-    
-
-    // display: flex;
-    // flex-wrap: wrap;
-    .img{
+    //font-family: Arial, Helvetica, sans-serif;
+    //display: flex;
+    //flex-direction:row;
+    //flex-wrap: wrap;
+    img{
         background-size:cover;
     }
+
 }
+
+// https://medium.com/letsboot/quick-start-with-angular-material-and-flex-layout-1b065aa1476c
+
+// https://www.9lessons.info/2018/07/social-login-using-angular-and-restful.html
+
+//https://codinglatte.com/posts/angular/responsive-app-angular-flex-layout/

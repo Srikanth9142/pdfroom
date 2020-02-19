@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Book,Analytic
-from .serializers import BookSerializer
+from .serializers import BookSerializer,LikesViewSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
@@ -25,4 +26,10 @@ class SaveLike(APIView):
         analyticObj.save()
         print("saved like")
         return Response("good")
-    
+
+class ViewPersonLike(generics.ListAPIView):
+    serializer_class = LikesViewSerializer
+
+    def get_queryset(self):
+        email = self.kwargs['email']
+        return Analytic.objects.filter(email = email)

@@ -4,12 +4,13 @@ import { LoginComponent } from './login/login.component';
 import { PdflistComponent } from './pdflist/pdflist.component';
 import { PdfreaderComponent }from './pdfreader/pdfreader.component';
 import { ProfileComponent }from './profile/profile.component';
-
+import { ShelfComponent } from './shelf/shelf.component';
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'list',component:PdflistComponent},
   {path:'view/:id',component:PdfreaderComponent},
   {path:'profile',component:ProfileComponent},
+  {path:'shelf',component:ShelfComponent},
 ];
 
 @NgModule({

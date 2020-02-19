@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../models/book';
-import { HttpClient } from '@angular/common/http';
+import { LikedBooks } from '../models/likedbooks';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
 
@@ -12,6 +13,7 @@ import { of } from 'rxjs';
 })
 export class DataService {
   book:Observable<Book[]>;
+  likedbookarr:Observable<LikedBooks[]>;
   private userdetails:any;
   constructor(private http:HttpClient) { }
 
@@ -40,4 +42,27 @@ export class DataService {
     return of(this.userdetails);
   }
 
+  store_likes(email:string,bid:any):any{
+    var data={
+      email:email,
+      bookid:bid,
+    }
+    return this.http.post('http://127.0.0.1:8000/shelf/like',data,
+    {
+      headers: new HttpHeaders({
+        "Content-Type": 'application/JSON'
+     })
+    });
+    //console.log("like saved");
+    //console.log(bid);
+  }
+
+  viewlikedbooks(email:string):Observable<LikedBooks[]>{
+    this.likedbookarr = this.http.get<LikedBooks[]>(
+      'http://127.0.0.1:8000/shelf/getlike/'+email).pipe(
+        map(a=>a.map(t=>{return new LikedBooks(t.bookid)}))
+      );
+      return this.likedbookarr;
+
+  }
 }
