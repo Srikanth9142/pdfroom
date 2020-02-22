@@ -65,4 +65,19 @@ export class DataService {
       return this.likedbookarr;
 
   }
+
+  sendUser(token:string):any{
+    var data={
+      id_token:token,
+    }
+    return this.http.post('http://127.0.0.1:8000/shelf/saveuser',data,{
+      headers: new HttpHeaders({
+        "Content-Type": 'application/JSON'
+     })
+    });
+  }
+
+
+
 }
+

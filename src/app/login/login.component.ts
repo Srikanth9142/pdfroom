@@ -19,6 +19,10 @@ export class LoginComponent implements OnInit {
 
       this.user = response;
       this.exist=true;
+      localStorage.setItem('id_token', JSON.stringify(this.user.idToken));
+      this.dataService.sendUser(this.user.idToken).subscribe(()=>{
+
+      });
       if(this.exist){
         this.saveUser();
       }
@@ -37,6 +41,8 @@ export class LoginComponent implements OnInit {
   	this.socialAuthService.signOut();
     console.log("user log out");
     this.user = 0;
+    localStorage.removeItem('id_token');
+    localStorage.clear();
     this.dataService.store_user(null);
   }
 

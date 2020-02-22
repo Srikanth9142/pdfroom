@@ -40,16 +40,16 @@ export class PdflistComponent implements OnInit {
     this.buttonColor = "warn";
   }
   getColor(bid:number):string{
-    console.log("function called");
-    if(this.userlikedbooks.length){
-      console.log("checked length");
-    this.userlikedbooks.forEach((d=>{
-      if(d.bookid == bid){
-        console.log("match found");
-        return "warn";
-      }  
-    }))
-    }
+    // console.log("function called");
+    // if(this.userlikedbooks.length){
+    //   console.log("checked length");
+    // this.userlikedbooks.forEach((d=>{
+    //   if(d.bookid == bid){
+    //     console.log("match found");
+    //     return "warn";
+    //   }  
+    // }))
+    // }
     return "accent";
   }
 

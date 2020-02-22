@@ -1,7 +1,17 @@
-<p>profile works!</p>
+<!-- <p>profile works!</p>
 <div>
     <img src="{{userprofile.image}}" alt="">
     <p><strong>{{userprofile.email}}</strong></p>
     <p>{{userprofile.name}}</p>
-</div>
+</div> -->
 <!-- https://mdbootstrap.com/docs/angular/tables/search/ -->
+
+<div class="profile-card">
+<mat-card >
+        <img  mat-card-image src="{{userprofile.image}}" alt="{{userprofile.name}}">
+        <mat-card-actions>
+            <h3><strong>{{userprofile.name}}</strong></h3>
+            <h4>{{userprofile.email}}</h4>
+        </mat-card-actions>
+</mat-card>
+</div>

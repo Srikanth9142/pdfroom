@@ -13,3 +13,11 @@ class Analytic(models.Model):
     bookid = models.ForeignKey(Book,on_delete=models.CASCADE)
     email = models.EmailField()
 
+class Reader(models.Model):
+    #readerid = models.AutoField()
+    name = models.CharField(max_length=250)
+    email = models.EmailField(primary_key=True)
+    photoid = models.CharField(max_length=250)
+
+    def __str__(self):
+        return str(self.name)

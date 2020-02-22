@@ -4,10 +4,10 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Book,Analytic
-from .serializers import BookSerializer,LikesViewSerializer
+from .models import Book,Analytic,Reader
+from .serializers import BookSerializer,LikesViewSerializer,SaveUserSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-
+from .checkserver import RetrieveUserInfo
 # Create your views here.
 
 def home(request):
@@ -33,3 +33,20 @@ class ViewPersonLike(generics.ListAPIView):
     def get_queryset(self):
         email = self.kwargs['email']
         return Analytic.objects.filter(email = email)
+
+class SaveUser(APIView):
+    serializer_class = SaveUserSerializer
+
+    def post(self,request):
+        readerinstance = Reader()
+        useremail,name,photoid = RetrieveUserInfo(request.data.get('id_token'))
+        if(Reader.objects.filter(email=useremail).exists()):
+            print("user exist")
+            return Response("user exist")
+        else:
+            Readerobj = Reader(email=useremail,name=name,photoid=photoid)
+            Readerobj.save()
+            #print(Readerobj)
+            print("user saved")
+            return Response("user saved")
+            
