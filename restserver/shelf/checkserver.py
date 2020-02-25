@@ -9,3 +9,7 @@ CLIENT_ID= "413051260737-ln0fa4c6v2g9t2fs0g7vcj1055550lfe.apps.googleusercontent
 def RetrieveUserInfo(token):
     userinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
     return userinfo.get('email'),userinfo.get('name'),userinfo.get('picture')
+
+def RetrieveEmail(token):
+    userinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+    return userinfo.get('email')

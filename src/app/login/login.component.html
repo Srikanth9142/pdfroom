@@ -1,14 +1,14 @@
 
-<div *ngIf="!user">
-   <h2>signin</h2>
+<div *ngIf="!IsUserloggedIn()">
+   <br>
 <button mat-raised-button color="primary" (click)="socialSignIn('google')">Signin with Google </button>
 <br><br>
-<button (click)="signOut()">Signout</button>
-</div>              
-<!-- <div class="g-signin2" data-onsuccess="socialSignIn"></div> -->
-<div *ngIf="user">
-   <h2>Already signed in</h2>
-   <p>name: {{user.name}}</p>
-   <img src="{{user.image}}">
-   <p>Email:{{user.email}}</p>
+</div> 
+<div *ngIf="IsUserloggedIn()">
+   <button mat-raised-button color="warn" (click)="signOut()">
+      <mat-icon>power_settings_new</mat-icon> signout</button>
 </div>
+
+
+<img src="../assets/img/PDFROOM.png" class="banner">           
+<!-- <div class="g-signin2" data-onsuccess="socialSignIn"></div> -->

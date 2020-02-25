@@ -14,3 +14,8 @@ class SaveUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reader
         fields = '__all__'
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reader
+        fields = '__all__'

@@ -5,10 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Book,Analytic,Reader
-from .serializers import BookSerializer,LikesViewSerializer,SaveUserSerializer
+from .serializers import BookSerializer,LikesViewSerializer,SaveUserSerializer,UserProfileSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from .checkserver import RetrieveUserInfo
-# Create your views here.
+from .checkserver import RetrieveUserInfo,RetrieveEmail
 
 def home(request):
     return HttpResponse("neeku ardamavutundaa")
@@ -22,6 +21,8 @@ class SaveLike(APIView):
         #print("got data ",email,bookid)
         #print(request.body)
         book_temp = Book.objects.get(bookid=request.data.get('bookid'))
+        book_temp.likes = book_temp.likes+1
+        book_temp.save()
         analyticObj = Analytic(bookid=book_temp,email=request.data.get('email'))
         analyticObj.save()
         print("saved like")
@@ -31,8 +32,8 @@ class ViewPersonLike(generics.ListAPIView):
     serializer_class = LikesViewSerializer
 
     def get_queryset(self):
-        email = self.kwargs['email']
-        return Analytic.objects.filter(email = email)
+        user_email = RetrieveEmail(self.kwargs['token'])
+        return Analytic.objects.filter(email = user_email)
 
 class SaveUser(APIView):
     serializer_class = SaveUserSerializer
@@ -49,4 +50,11 @@ class SaveUser(APIView):
             #print(Readerobj)
             print("user saved")
             return Response("user saved")
-            
+
+class GetUserProfile(generics.ListAPIView):
+    serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+        user_email = RetrieveEmail(self.kwargs['token'])
+        return Reader.objects.filter(email=user_email)
+

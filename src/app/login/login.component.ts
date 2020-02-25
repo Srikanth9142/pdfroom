@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService,GoogleLoginProvider } from 'angular-6-social-login';
 import { DataService }from 'src/app/services/data.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -46,10 +47,10 @@ export class LoginComponent implements OnInit {
     this.dataService.store_user(null);
   }
 
-
-
-  public userDetails(){
-    return this.user;
+  IsUserloggedIn(){
+    console.log(this.dataService.isLoggedIn());
+    return this.dataService.isLoggedIn();
+   
   }
 
   ngOnInit() {

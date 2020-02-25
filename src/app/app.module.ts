@@ -65,7 +65,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FlexLayoutModule,
     MatListModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
+
   ],
   providers: [
     {

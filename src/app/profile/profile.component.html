@@ -6,12 +6,19 @@
 </div> -->
 <!-- https://mdbootstrap.com/docs/angular/tables/search/ -->
 
-<div class="profile-card">
-<mat-card >
-        <img  mat-card-image src="{{userprofile.image}}" alt="{{userprofile.name}}">
-        <mat-card-actions>
-            <h3><strong>{{userprofile.name}}</strong></h3>
-            <h4>{{userprofile.email}}</h4>
-        </mat-card-actions>
+<div class="profile-card" *ngFor="let i of profileuser">
+<mat-card > 
+        <img  mat-card-image src="{{i.photoid}}" alt="{{i.name}}">
+        <!-- <mat-card-actions>
+            
+        </mat-card-actions> -->
+        <p><strong>{{i.name}}</strong></p>
+            <p>{{i.email}}</p>
 </mat-card>
 </div>
+
+<!-- <div *ngFor="let i of likedbooks">
+    <p>{{books[i.bookid].name}}</p> -->
+    <!-- <p>{{i}}</p>
+
+</div> --> 

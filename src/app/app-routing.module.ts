@@ -5,12 +5,14 @@ import { PdflistComponent } from './pdflist/pdflist.component';
 import { PdfreaderComponent }from './pdfreader/pdfreader.component';
 import { ProfileComponent }from './profile/profile.component';
 import { ShelfComponent } from './shelf/shelf.component';
+import {AuthGuardGuard} from './guards/auth-guard.guard';
 const routes: Routes = [
   {path:'login',component:LoginComponent},
-  {path:'list',component:PdflistComponent},
-  {path:'view/:id',component:PdfreaderComponent},
-  {path:'profile',component:ProfileComponent},
-  {path:'shelf',component:ShelfComponent},
+  {path:'list',component:PdflistComponent,canActivate:[AuthGuardGuard]},
+  {path:'view/:id',component:PdfreaderComponent,canActivate:[AuthGuardGuard]},
+  {path:'profile',component:ProfileComponent,canActivate:[AuthGuardGuard]},
+  {path:'shelf',component:ShelfComponent,canActivate:[AuthGuardGuard]},
+  {path:'**',component:LoginComponent}
 ];
 
 @NgModule({

@@ -26,7 +26,7 @@ export class PdflistComponent implements OnInit {
   }
   onChange(){
     if(this.showlikes.value){
-      this.dataService.viewlikedbooks(this.userprofile.email).subscribe(d=>{
+      this.dataService.viewlikedbooks().subscribe(d=>{
         this.userlikedbooks = d;
       });
     }
@@ -39,27 +39,14 @@ export class PdflistComponent implements OnInit {
     });
     this.buttonColor = "warn";
   }
-  getColor(bid:number):string{
-    // console.log("function called");
-    // if(this.userlikedbooks.length){
-    //   console.log("checked length");
-    // this.userlikedbooks.forEach((d=>{
-    //   if(d.bookid == bid){
-    //     console.log("match found");
-    //     return "warn";
-    //   }  
-    // }))
-    // }
-    return "accent";
-  }
-
+  
   ngOnInit():void{
     this.dataService.get_books().pipe(take(1)).subscribe(d=>{
       this.books = d;
 
     });
     this.getUserDetails();
-    this.dataService.viewlikedbooks(this.userprofile.email).subscribe(d=>{
+    this.dataService.viewlikedbooks().subscribe(d=>{
       this.userlikedbooks = d;
     });
   }
