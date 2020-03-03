@@ -34,7 +34,7 @@ export class PdflistComponent implements OnInit {
     console.log(this.showlikes.value);
   }
   send_like(event,bid:any){
-    this.dataService.store_likes(this.userprofile.email,bid).subscribe(()=>{
+    this.dataService.store_likes(bid).subscribe(()=>{
 
     });
     this.buttonColor = "warn";

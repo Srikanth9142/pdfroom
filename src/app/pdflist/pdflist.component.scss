@@ -1,12 +1,16 @@
 .bookcard{
-    max-width: 300px;
+    max-width: 200px;
     margin-left: 30px;
+    max-height: 320px;
     //font-family: Arial, Helvetica, sans-serif;
     //display: flex;
     //flex-direction:row;
     //flex-wrap: wrap;
     img{
+        height:180px;
+        width:150px;
         background-size:cover;
+        padding-left: 30px;
     }
 
 }

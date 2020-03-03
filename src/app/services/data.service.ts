@@ -14,23 +14,24 @@ import { of } from 'rxjs';
 })
 export class DataService {
   book:Observable<Book[]>;
-  likedbookarr:Observable<LikedBooks[]>;
   userprofile:UserProfile[];
   private userdetails:any;
   constructor(private http:HttpClient) { }
 
   get_books():Observable<Book[]>{
     //console.log("In data service");
-    this.book = this.http.get<Book[]>(
+    return this.http.get<Book[]>(
    'http://127.0.0.1:8000/shelf/list').pipe(
      map(a=> a.map(t=>{return new Book(t.bookid,t.name,t['file'],t['coverphoto'],t.author,t.category,t.likes)})
      )
    );
    //console.log(this.book); 
-   return this.book;
   }
 
- 
+  get_userDetails():Observable<any[]>{
+    return of(this.userdetails);
+  }
+
 
   store_user(user):void{
     this.userdetails = user; 
@@ -38,13 +39,12 @@ export class DataService {
     console.log(this.userdetails);
   }
 
-  get_userDetails():Observable<any[]>{
-    return of(this.userdetails);
-  }
 
-  store_likes(email:string,bid:any):any{
+  store_likes(bid:any):any{
+    var token = localStorage.getItem('id_token');
+    token = token.substring(1,token.length-1);
     var data={
-      email:email,
+      id_token:token,
       bookid:bid,
     }
     return this.http.post('http://127.0.0.1:8000/shelf/like',data,
@@ -60,12 +60,11 @@ export class DataService {
   viewlikedbooks():Observable<LikedBooks[]>{
     var token = localStorage.getItem('id_token');
     token = token.substring(1,token.length-1);
-    this.likedbookarr = this.http.get<LikedBooks[]>(
+    return this.http.get<LikedBooks[]>(
       'http://127.0.0.1:8000/shelf/getlike/'+token).pipe(
         map(a=>a.map(t=>{return new LikedBooks(t.bookid)}))
       );
-      return this.likedbookarr;
-
+      
   }
 
   sendUser(token:string):any{
@@ -84,16 +83,16 @@ export class DataService {
   getUserProfile():Observable<UserProfile[]>{
     var token = localStorage.getItem('id_token');
     token = token.substring(1,token.length-1);
-    console.log(token);
+    //console.log(token);
     return this.http.get<UserProfile[]>('http://127.0.0.1:8000/shelf/getuser/'+token).pipe(
       map(a=>a.map(t=>{return new UserProfile(t.name,t.email,t.photoid)}))
     );
 
   }
 
-  get_liked_to_components():Observable<LikedBooks[]>{
-    return this.likedbookarr;
-  }
+  // get_liked_to_components():Observable<LikedBooks[]>{
+  //   return this.likedbookarr;
+  // }
 
   get_book():Observable<Book[]>{
 

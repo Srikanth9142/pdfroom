@@ -5,20 +5,32 @@
     <p>{{userprofile.name}}</p>
 </div> -->
 <!-- https://mdbootstrap.com/docs/angular/tables/search/ -->
-
-<div class="profile-card" *ngFor="let i of profileuser">
-<mat-card > 
-        <img  mat-card-image src="{{i.photoid}}" alt="{{i.name}}">
-        <!-- <mat-card-actions>
-            
-        </mat-card-actions> -->
-        <p><strong>{{i.name}}</strong></p>
-            <p>{{i.email}}</p>
-</mat-card>
+<div  class="profile-card" fxFlex="0 1 calc(33% - 10px)">
+    <div *ngFor="let i of profileuser">
+        <mat-card> 
+                <img  mat-card-image src="{{i.photoid}}" alt="{{i.name}}">
+                <!-- <mat-card-actions>
+                    
+                </mat-card-actions> -->
+                <p><strong>{{i.name}}</strong></p>
+        </mat-card>
+        </div>
 </div>
 
-<!-- <div *ngFor="let i of likedbooks">
-    <p>{{books[i.bookid].name}}</p> -->
-    <!-- <p>{{i}}</p>
-
-</div> --> 
+    
+<mat-tab-group fxFlex="0 1 calc(33% - 10px)" class="tabgroupclass">
+  <mat-tab label="Liked Books"> 
+    <div class="userdetails">
+    <div  *ngFor="let i of likedbooks">
+        <p  [routerLink]="['/view',i.bookid]">{{books[i.bookid-1].name}}</p>
+    </div>
+  </div>
+        
+</mat-tab>
+  <mat-tab label="Shelf">
+    <app-likedbookstable></app-likedbookstable>
+  </mat-tab>
+</mat-tab-group>
+<div fxFlex="0 1 calc(33% - 10px)" class="piechart">
+  <app-piechart *ngIf="bookslen!=0 && likedbookslen!=0" [allbooks]="bookslen" [likedbooks]="likedbookslen" [shelfbooks]="0"></app-piechart>
+</div>

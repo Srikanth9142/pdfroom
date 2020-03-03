@@ -14,7 +14,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 import { ProfileComponent } from './profile/profile.component';
 import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from "angular-6-social-login";
 import { ShelfComponent } from './shelf/shelf.component';
@@ -22,7 +25,11 @@ import { BookComponent } from './book/book.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { LikedbookstableComponent } from './likedbookstable/likedbookstable.component';
+import {MatInputModule} from '@angular/material/input';
+import { ChartsModule } from 'ng2-charts';
+import { PiechartComponent } from './piechart/piechart.component';
   const client_id:string = '413051260737-ln0fa4c6v2g9t2fs0g7vcj1055550lfe.apps.googleusercontent.com';
     
   export function getAuthServiceConfigs() {
@@ -46,6 +53,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ProfileComponent,
     ShelfComponent,
     BookComponent,
+    LikedbookstableComponent,
+    PiechartComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,11 +70,18 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
-    PdfViewerModule,
+    NgxExtendedPdfViewerModule,
     FlexLayoutModule,
     MatListModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    ChartsModule
+
 
 
   ],

@@ -1,4 +1,4 @@
-<p>pdflist works!</p>
+
 <!-- <h3>Welcome <strong>{{userprofile.name}} Here are your books</strong></h3> -->
 <mat-slide-toggle
           [formControl]="showlikes"
@@ -9,18 +9,18 @@
         LikedBooks
       </mat-slide-toggle>
 <ng-container *ngIf="!showlikes.value">
-    <div>
-<app-book *ngFor="let book of books" [book]="book"></app-book>
+    <div fxLayout="row wrap" fxLayoutGap="0px" fxLayoutAlign="flex-start">
+<app-book *ngFor="let book of books" [book]="book" fxFlex="0 1 calc(25% - 10px)"></app-book>
 </div>
 </ng-container>
 <ng-container *ngIf="showlikes.value">
-    <div *ngFor="let u of userlikedbooks" class="bookcard">
-        <p>{{books[u.bookid-1].name}}</p>
+    <div *ngFor="let u of userlikedbooks" class="bookcard" fxFlex="0 1 calc(25% - 10px)">
+        <!-- <p>{{books[u.bookid-1].name}}</p> -->
         <mat-card>
-            <mat-card-header>
-                <mat-card-title><strong>{{books[u.bookid-1].name}}</strong></mat-card-title>
-                <mat-card-subtitle>{{books[u.bookid-1].author}}</mat-card-subtitle>
-            </mat-card-header>
+            <!-- <mat-card-header> -->
+                <h4><strong>{{books[u.bookid-1].name}}</strong></h4>
+                <p>{{books[u.bookid-1].author}}</p>
+            <!-- </mat-card-header> -->
             <img  mat-card-image src="{{books[u.bookid-1].coverurl}}" alt="{{books[u.bookid-1].name}}">
             <mat-card-actions>
                 <button mat-raised-button color="accent" [routerLink]="['/view',books[u.bookid-1].bookid]">View </button>

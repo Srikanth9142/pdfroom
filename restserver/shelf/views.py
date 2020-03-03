@@ -23,7 +23,8 @@ class SaveLike(APIView):
         book_temp = Book.objects.get(bookid=request.data.get('bookid'))
         book_temp.likes = book_temp.likes+1
         book_temp.save()
-        analyticObj = Analytic(bookid=book_temp,email=request.data.get('email'))
+        user_email = RetrieveEmail(request.data.get('id_token'))
+        analyticObj = Analytic(bookid=book_temp,email=user_email)
         analyticObj.save()
         print("saved like")
         return Response("good")

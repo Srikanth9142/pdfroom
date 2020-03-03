@@ -18,7 +18,7 @@ export class BookComponent implements OnInit {
   }
 
   send_like(event,bid:any){
-    this.dataService.store_likes(this.userprofile.email,bid).subscribe(()=>{
+    this.dataService.store_likes(bid).subscribe(()=>{
 
     });
     this.snackbar.open('Added to liked books','Okay!!',{

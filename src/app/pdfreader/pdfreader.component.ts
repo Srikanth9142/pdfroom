@@ -17,7 +17,7 @@ export class PdfreaderComponent implements OnInit {
 
   ngOnInit() {
     this.Bookid = this.route.snapshot.params['id'];
-    this.dataservice.get_book().subscribe(d=>{
+    this.dataservice.get_books().subscribe(d=>{
       this.book = d;
       this.fileUrl=d[this.Bookid-1].fileurl;
     });
