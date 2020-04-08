@@ -19,13 +19,12 @@ export class DataService {
   constructor(private http:HttpClient) { }
 
   get_books():Observable<Book[]>{
-    //console.log("In data service");
-    return this.http.get<Book[]>(
-   'http://127.0.0.1:8000/shelf/list').pipe(
-     map(a=> a.map(t=>{return new Book(t.bookid,t.name,t['file'],t['coverphoto'],t.author,t.category,t.likes)})
+    //working fine
+    return this.http.get<Book[]>(`${environment.serverurl}/shelf/list`
+   ).pipe(
+     map(a=> a.map(t=>{return new Book(t.bookid,t.name,t['fileUrl'],t['coverphoto'],t.author,t.category)})
      )
    );
-   //console.log(this.book); 
   }
 
   get_userDetails():Observable<any[]>{
@@ -41,13 +40,14 @@ export class DataService {
 
 
   store_likes(bid:any):any{
+    //working fine
     var token = localStorage.getItem('id_token');
     token = token.substring(1,token.length-1);
     var data={
       id_token:token,
       bookid:bid,
     }
-    return this.http.post('http://127.0.0.1:8000/shelf/like',data,
+    return this.http.post(`${environment.serverurl}/shelf/like`,data,
     {
       headers: new HttpHeaders({
         "Content-Type": 'application/JSON'
@@ -58,20 +58,23 @@ export class DataService {
   }
 
   viewlikedbooks():Observable<LikedBooks[]>{
+    //working fine
     var token = localStorage.getItem('id_token');
     token = token.substring(1,token.length-1);
     return this.http.get<LikedBooks[]>(
-      'http://127.0.0.1:8000/shelf/getlike/'+token).pipe(
+      `${environment.serverurl}/shelf/getlike/`+token).pipe(
         map(a=>a.map(t=>{return new LikedBooks(t.bookid)}))
       );
       
   }
 
   sendUser(token:string):any{
+    //working fine
     var data={
       id_token:token,
     }
-    return this.http.post('http://127.0.0.1:8000/shelf/saveuser',data,{
+    //shelf/saveuser
+    return this.http.post(`${environment.serverurl}/shelf/saveuser`,data,{
       headers: new HttpHeaders({
         "Content-Type": 'application/JSON'
      })
@@ -81,10 +84,12 @@ export class DataService {
     return !!localStorage.getItem('id_token');
   }
   getUserProfile():Observable<UserProfile[]>{
+    //working fine
     var token = localStorage.getItem('id_token');
     token = token.substring(1,token.length-1);
     //console.log(token);
-    return this.http.get<UserProfile[]>('http://127.0.0.1:8000/shelf/getuser/'+token).pipe(
+    //shelf/getuser
+    return this.http.get<UserProfile[]>(`${environment.serverurl}/shelf/getuser/`+token).pipe(
       map(a=>a.map(t=>{return new UserProfile(t.name,t.email,t.photoid)}))
     );
 
@@ -94,10 +99,10 @@ export class DataService {
   //   return this.likedbookarr;
   // }
 
-  get_book():Observable<Book[]>{
+  get_book():Observable<Book[]>{ //doubt not using
 
     return this.book;
   }
-  
+
 }
 

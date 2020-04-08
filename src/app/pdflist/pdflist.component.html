@@ -1,6 +1,7 @@
 
 <!-- <h3>Welcome <strong>{{userprofile.name}} Here are your books</strong></h3> -->
-<mat-slide-toggle
+<div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="flex-start">
+        <mat-slide-toggle
           [formControl]="showlikes"
           (change)="onChange()"
           [color]="accent"
@@ -8,12 +9,27 @@
           [disabled]="disabled">
         LikedBooks
       </mat-slide-toggle>
+      <button mat-fab color="primary" (click)="openDialog()">
+        <mat-icon>library_books</mat-icon>
+    </button>
+      <div *ngFor="let cate of categorylist" >
+      <mat-card fxFlex="0 1 calc(10% - 10px)" class="categoryclass" [routerLink]="['/category',cate]">
+          <mat-card-content>
+              <h4 matBadge="18" matBadgePosition="after" matBadgeColor="warn" > {{cate}}</h4>
+
+          </mat-card-content>
+      </mat-card>
+      </div> 
+</div>
+
+<div class="container">
 <ng-container *ngIf="!showlikes.value">
     <div fxLayout="row wrap" fxLayoutGap="0px" fxLayoutAlign="flex-start">
 <app-book *ngFor="let book of books" [book]="book" fxFlex="0 1 calc(25% - 10px)"></app-book>
 </div>
 </ng-container>
 <ng-container *ngIf="showlikes.value">
+    <br>
     <div *ngFor="let u of userlikedbooks" class="bookcard" fxFlex="0 1 calc(25% - 10px)">
         <!-- <p>{{books[u.bookid-1].name}}</p> -->
         <mat-card>
@@ -32,3 +48,4 @@
         </mat-card>
     </div>
 </ng-container>
+</div>

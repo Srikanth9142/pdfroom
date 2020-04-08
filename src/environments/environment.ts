@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  serverurl: 'http://localhsot:8000',
+  //serverurl: 'http://easymeet99.pythonanywhere.com',
+  serverurl:'http://localhost:8000'
 };
 
 /*

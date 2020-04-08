@@ -4,11 +4,10 @@ from django.db import models
 class Book(models.Model):
     bookid =  models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
-    file = models.FileField(upload_to='media/')
+    fileUrl = models.CharField(max_length=100)
     coverphoto = models.ImageField(upload_to='media/')
     author = models.CharField(max_length=150)
     category = models.CharField(max_length=50,null=True)
-    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.name)

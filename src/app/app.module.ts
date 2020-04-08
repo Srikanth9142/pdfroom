@@ -30,6 +30,14 @@ import { LikedbookstableComponent } from './likedbookstable/likedbookstable.comp
 import {MatInputModule} from '@angular/material/input';
 import { ChartsModule } from 'ng2-charts';
 import { PiechartComponent } from './piechart/piechart.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { CategoryComponent } from './category/category.component';
+
+
+
+
   const client_id:string = '413051260737-ln0fa4c6v2g9t2fs0g7vcj1055550lfe.apps.googleusercontent.com';
     
   export function getAuthServiceConfigs() {
@@ -55,6 +63,7 @@ import { PiechartComponent } from './piechart/piechart.component';
     BookComponent,
     LikedbookstableComponent,
     PiechartComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,11 +89,12 @@ import { PiechartComponent } from './piechart/piechart.component';
     MatPaginatorModule,
     MatSortModule,
     MatInputModule,
-    ChartsModule
-
-
-
+    ChartsModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatProgressBarModule
   ],
+  entryComponents: [ShelfComponent,],
   providers: [
     {
       provide: AuthServiceConfig,

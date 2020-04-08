@@ -1,0 +1,8 @@
+<div class="container">
+    <h3>
+        Showing List of {{category}} Books
+    </h3>
+ <div fxLayout="row wrap" fxLayoutGap="0px" fxLayoutAlign="flex-start">
+<app-book *ngFor="let book of categorySortedBooks" [book]="book" fxFlex="0 1 calc(25% - 10px)"></app-book>
+</div>
+</div>

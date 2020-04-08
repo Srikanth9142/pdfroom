@@ -10,25 +10,13 @@
             <button mat-icon-button [routerLink]="['/view',book.bookid]" matTooltip="View Book">
                 <mat-icon>menu_book</mat-icon>
             </button>
-            <!-- <button mat-flat-button>
-                <mat-icon>library_books</mat-icon>
-            </button> -->
             <button mat-icon-button matTooltip="Add to Shelf">
                     <mat-icon>library_books</mat-icon>
             </button>
             <button mat-icon-button (click)="send_like($event,book.bookid)">
                 <mat-icon>favorite_border</mat-icon>
             </button>
-            <p>{{book.likes}}</p>
-            <!-- <  mat-icon-button (click)="send_like($event,book.bookid)">
-                <mat-icon>favorite_border</mat-icon>
-            </button> -->
-            <!-- <button mat-icon-button matTooltip="Add Comment">
-                <mat-icon>comment</mat-icon>
-            </button>
-            <button mat-icon-button>
-                    <mat-icon>share</mat-icon>
-                </button> -->
+            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
         </mat-card-actions>
     </mat-card>
     <br>

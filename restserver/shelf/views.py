@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import authentication, permissions
 
 from .models import Book,Analytic,Reader
 from .serializers import BookSerializer,LikesViewSerializer,SaveUserSerializer,UserProfileSerializer
@@ -13,6 +14,8 @@ def home(request):
     return HttpResponse("neeku ardamavutundaa")
 
 class BookList(generics.ListCreateAPIView):
+    #permission_classes = [permissions.IsAdminUser]
+
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
@@ -21,7 +24,7 @@ class SaveLike(APIView):
         #print("got data ",email,bookid)
         #print(request.body)
         book_temp = Book.objects.get(bookid=request.data.get('bookid'))
-        book_temp.likes = book_temp.likes+1
+        # book_temp.likes = book_temp.likes+1
         book_temp.save()
         user_email = RetrieveEmail(request.data.get('id_token'))
         analyticObj = Analytic(bookid=book_temp,email=user_email)

@@ -5,6 +5,8 @@ import { Observable }from 'rxjs';
 import { DataService }from 'src/app/services/data.service';
 import { take } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import { ShelfComponent } from '../shelf/shelf.component';
 
 @Component({
   selector: 'app-pdflist',
@@ -15,10 +17,18 @@ export class PdflistComponent implements OnInit {
   books:Book[];
   userprofile:any;
   userlikedbooks:LikedBooks[]=[];
+  categorylist:String[]=["Core CS","Machine Learning","Web Development","Programming","General"];
   clickedToggle:boolean=false; // when user clicked toggle made this to true and show liked books 
   private buttonColor:string="primary";
   showlikes = new FormControl();
-  constructor(private dataService:DataService) { }
+  constructor(private dataService:DataService,public dialog:MatDialog) { }
+  openDialog() {
+    const dialogRef = this.dialog.open(ShelfComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   getUserDetails(){
     this.dataService.get_userDetails().subscribe(userdetails=>{
       this.userprofile = userdetails;

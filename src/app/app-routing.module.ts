@@ -6,12 +6,14 @@ import { PdfreaderComponent }from './pdfreader/pdfreader.component';
 import { ProfileComponent }from './profile/profile.component';
 import { ShelfComponent } from './shelf/shelf.component';
 import {AuthGuardGuard} from './guards/auth-guard.guard';
+import { CategoryComponent } from './category/category.component';
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'list',component:PdflistComponent,canActivate:[AuthGuardGuard]},
   {path:'view/:id',component:PdfreaderComponent,canActivate:[AuthGuardGuard]},
   {path:'profile',component:ProfileComponent,canActivate:[AuthGuardGuard]},
   {path:'shelf',component:ShelfComponent,canActivate:[AuthGuardGuard]},
+  {path:'category/:categoryname',component:CategoryComponent,canActivate:[AuthGuardGuard]},
   {path:'**',component:LoginComponent}
 ];
 

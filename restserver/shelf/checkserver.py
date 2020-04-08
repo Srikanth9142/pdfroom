@@ -11,5 +11,10 @@ def RetrieveUserInfo(token):
     return userinfo.get('email'),userinfo.get('name'),userinfo.get('picture')
 
 def RetrieveEmail(token):
-    userinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
-    return userinfo.get('email')
+    try:
+        userinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+        return userinfo.get('email')
+    except ValueError:
+        print("Token expired please login again")
+
+    

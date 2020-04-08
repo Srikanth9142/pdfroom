@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
   }
 
   IsUserloggedIn(){
-    console.log(this.dataService.isLoggedIn());
     return this.dataService.isLoggedIn();
    
   }

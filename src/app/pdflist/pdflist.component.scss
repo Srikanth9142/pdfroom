@@ -14,7 +14,28 @@
     }
 
 }
+.container{
+    margin-left: 150px;
+    margin-top: 50px;
+    margin-right:150px;
+    margin-bottom: 50px;
+    //border: solid 3px #6200EE;
+}
+.categoryclass{
+    width: 150px;
+    height: 80px;
+    //background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
 
+    //background: linear-gradient(#ed4264, #ffedbc);
+    //background-color: pinky;
+    margin-top: 10px;
+    margin-left: 50px;
+    // h4{
+    //     font:italic bold 12px/30px Georgia, serif;
+    //     //color: white;
+    // }
+
+}
 // https://medium.com/letsboot/quick-start-with-angular-material-and-flex-layout-1b065aa1476c
 
 // https://www.9lessons.info/2018/07/social-login-using-angular-and-restful.html
