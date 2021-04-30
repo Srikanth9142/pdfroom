@@ -22,7 +22,7 @@ pycparser==2.19
 pyOpenSSL==19.1.0
 pytz==2019.3
 requests==2.23.0
-rsa==4.0
+rsa==4.7
 six==1.14.0
 sqlparse==0.3.0
 uritemplate==3.0.1
