@@ -9,28 +9,49 @@
     <div *ngFor="let i of profileuser">
         <mat-card> 
                 <img  mat-card-image src="{{i.photoid}}" alt="{{i.name}}">
-                <!-- <mat-card-actions>
-                    
-                </mat-card-actions> -->
+                
                 <p><strong>{{i.name}}</strong></p>
+                <mat-card-content>
+                  <p><strong>Points: </strong> {{i.points}}</p>
+                </mat-card-content>
         </mat-card>
         </div>
 </div>
 
     
-<mat-tab-group fxFlex="0 1 calc(33% - 10px)" class="tabgroupclass">
-  <mat-tab label="Liked Books"> 
+<mat-tab-group fxFlex="0 1 calc(33% - 10px)" class="tabgroupclass" *ngIf="likedbookslen!=0">
+  <mat-tab label="Shelf Books"> 
     <div class="userdetails">
-    <div  *ngFor="let i of likedbooks">
-        <p  [routerLink]="['/view',i.bookid]">{{books[i.bookid-1].name}}</p>
-    </div>
+      <p *ngIf="shelfbookslen==0">Nothing to show add books to shelf to view piechart of your books</p>
+    <!-- <div  *ngFor="let i of shelfbooks">
+        <p  [routerLink]="['/view',i.bookid-1]">{{books[i.bookid-1].name}}</p>
+    </div> -->
+    <mat-list *ngFor="let book of shelfbooks">
+      <mat-list-item [routerLink]="['/view', book.bookid]">{{getBookNameById(book.bookid)}}</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
   </div>
         
 </mat-tab>
-  <mat-tab label="Shelf">
-    <app-likedbookstable></app-likedbookstable>
+  <mat-tab label="Liked Books" >
+    <app-likedbookstable *ngIf="likedbookslen!=0"></app-likedbookstable>
   </mat-tab>
 </mat-tab-group>
 <div fxFlex="0 1 calc(33% - 10px)" class="piechart">
-  <app-piechart *ngIf="bookslen!=0 && likedbookslen!=0" [allbooks]="bookslen" [likedbooks]="likedbookslen" [shelfbooks]="0"></app-piechart>
+  <app-piechart *ngIf="bookslen!=0 && likedbookslen!=0 && shelfbookslen!=0" [allbooks]="bookslen" [likedbooks]="likedbookslen" [shelfbooks]="shelfbookslen"></app-piechart>
+</div>
+<div class="bottom-left">
+  <h4>Your Comments</h4>
+  <mat-accordion *ngFor="let comment of commentsMadeByUser">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{comment.message}}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Book Name: {{getBookNameById(comment.bookId)}}</p>
+      <div class="align-in-row">
+        <p>Upvotes: {{comment.upvotes}}</p>
+        <button mat-raised-button color="primary" (click)="viewBookDetails(comment.bookId)">View Details</button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

@@ -1,11 +1,4 @@
-<!-- <mat-toolbar color="primary">
-  <span (click)="home()">PdfRoom</span>
-  <span (click)="viewlist()">Books</span>
-  <button  mat-button (click)="viewProfile()" color="priamry">
-    <mat-icon>person</mat-icon>
-  </button>
-</mat-toolbar>
-<router-outlet></router-outlet> -->
+
 <div style="height: 100vh;">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
@@ -15,16 +8,20 @@
       <span (click)="home()">PDFroom</span>
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.lt-md="true">
-     
-        <!-- <a href="#" mat-button>
-          <mat-icon>notifications</mat-icon>
-          Notifications
-        </a>  -->
-        <!-- <button mat-button (click)="home()">PdfRoom</button> -->
+        <mat-form-field appearance="outline">
+          <mat-label>search here</mat-label>
+          <input matInput placeholder="Book name">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
         <button mat-button (click)="viewlist()">Books</button>
-        <button  mat-button (click)="viewProfile()" color="priamry">
+        <!-- <button  mat-button (click)="viewProfile()">
           <mat-icon>person</mat-icon>
-        </button>
+        </button> -->
+        <button mat-button [matMenuTriggerFor]="beforeMenu"><mat-icon>person</mat-icon></button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="viewProfile()">Profile</button>
+          <button mat-menu-item (click)="goToReadList()">Your ReadList</button>
+        </mat-menu>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -33,9 +30,16 @@
     <mat-sidenav #sidenav>
       <mat-nav-list>
         <span (click)="viewlist()" mat-list-item>Books</span>
-        <span (click)="viewProfile()" color="primary" mat-list-item>
+        <!-- <span (click)="viewProfile()" mat-list-item>
           <mat-icon>person</mat-icon>
-        </span>
+        </span> -->
+        <button mat-button [matMenuTriggerFor]="beforeMenu"><mat-icon>person</mat-icon></button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="viewProfile()">Profile</button>
+          <button mat-menu-item (click)="goToReadList()">Your ReadList</button>
+        </mat-menu>
+        <span (click)="loginRedirect()">
+          <mat-icon>login</mat-icon></span>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill><router-outlet></router-outlet></mat-sidenav-content>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pdfroom-9142": {
+      "hosting": {
+        "pdfroom": [
+          "pdfroom-9142"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pdfroom-9142"
+  }
+}

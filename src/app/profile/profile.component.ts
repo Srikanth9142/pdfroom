@@ -5,10 +5,11 @@ import { UserProfile } from '../models/userprofile';
 import { take } from 'rxjs/operators';
 import { LikedBooks } from '../models/likedbooks';
 import { Book } from '../models/book';
+import { ShelfBooks } from '../models/shelfbooks';
+import { Comment } from '../models/comment';
+import { NotificationService } from '../services/notification.service';
+import { Router } from '@angular/router';
 
-//
-
-//
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,14 +18,17 @@ import { Book } from '../models/book';
 export class ProfileComponent implements OnInit {
  
   //userprofile:any;
-  profileuser:UserProfile[];
-  books:Book[];
-  likedbooks:LikedBooks[];
+  profileuser:UserProfile[]=[];
+  books:Book[]=[];
+  likedbooks:LikedBooks[]=[];
+  shelfbooks:ShelfBooks[]=[];
+  commentsMadeByUser: Comment[];
   bookslen:number=0;
   likedbookslen:number=0;
+  shelfbookslen:number=0;
   displayedColumns: string[] = ['BookId', 'Name', 'Author'];
   dataSource = LikedBooks;
-  constructor(private dataService:DataService) { }
+  constructor(private dataService:DataService, private router: Router, private notificationService: NotificationService) { }
   // showbook(bid:number){
 
   // }
@@ -33,20 +37,50 @@ export class ProfileComponent implements OnInit {
     this.dataService.getUserProfile().pipe(take(1)).subscribe(d=>{
       this.profileuser=d;
       //console.log(this.profileuser[0].photoid);
+    },errMes=>{
+      this.notificationService.notifyErrorMessageToUser(errMes);
     });
     this.dataService.get_books().pipe(take(1)).subscribe(d=>{
       this.books = d;
       this.bookslen = this.books.length;
       console.log("In profile:"+this.bookslen);
+    }, errMess=>{
+      this.notificationService.notifyErrorMessageToUser(errMess);
     });
 
     this.dataService.viewlikedbooks().pipe(take(1)).subscribe(d=>{
       this.likedbooks = d;
+      console.log("In userliked books:"+d.length);
       this.likedbookslen = this.likedbooks.length;
       
+    }, errMess=>{
+      this.notificationService.notifyErrorMessageToUser(errMess);
+    });
+
+    this.dataService.viewShelfBooks().pipe(take(1)).subscribe(d=>{
+      this.shelfbooks=d;
+      this.shelfbookslen  = this.shelfbooks.length;
+      console.log("In shelf books:"+this.shelfbookslen);
+    }, errMess=>{
+      this.notificationService.notifyErrorMessageToUser(errMess);
     });
     
-    
+    this.dataService.fetchAllCommentsOfUser().pipe(take(1)).subscribe((data)=>{
+      this.commentsMadeByUser = data;
+      console.log("Comments made by user");
+    }, errMess=>{
+      this.notificationService.notifyErrorMessageToUser(errMess);
+    });
+ 
     
 }
+
+getBookNameById(bookId: number):string{
+  return this.books[bookId-1].name;
+}
+
+viewBookDetails(bookId: number){
+  this.router.navigate(['/details',bookId]);
+}
+
 }

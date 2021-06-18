@@ -15,9 +15,16 @@ import { ShelfComponent } from '../shelf/shelf.component';
 })
 export class PdflistComponent implements OnInit {
   books:Book[];
-  userprofile:any;
+  //userprofile:any;
   userlikedbooks:LikedBooks[]=[];
-  categorylist:String[]=["Core CS","Machine Learning","Web Development","Programming","General"];
+  checked:any;
+  disabled:any;
+  //categorylist:String[]=["Core CS","Machine Learning","Web Development","Programming","General"];
+  categorylist:Record<string,string>={"Core CS":"../assets/img/corecs.jpg",
+                                      "Machine Learning":"../assets/img/machinelearning.jpeg",
+                                    "Web Development":"../assets/img/webdevelopment.jpg",
+                                    "Programming":"../assets/img/programming.jpeg",
+                                    "General":"../assets/img/general.jpg"};
   clickedToggle:boolean=false; // when user clicked toggle made this to true and show liked books 
   private buttonColor:string="primary";
   showlikes = new FormControl();
@@ -29,15 +36,17 @@ export class PdflistComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  getUserDetails(){
-    this.dataService.get_userDetails().subscribe(userdetails=>{
-      this.userprofile = userdetails;
-    });
-  }
+  // getUserDetails(){
+  //   this.dataService.get_userDetails().subscribe(userdetails=>{
+  //     this.userprofile = userdetails;
+  //   });
+  // }
   onChange(){
     if(this.showlikes.value){
       this.dataService.viewlikedbooks().subscribe(d=>{
         this.userlikedbooks = d;
+        console.log("printing user liked books");
+        console.log(this.userlikedbooks);
       });
     }
     this.clickedToggle = this.showlikes.value;
@@ -55,9 +64,11 @@ export class PdflistComponent implements OnInit {
       this.books = d;
 
     });
-    this.getUserDetails();
+    // this.getUserDetails();
     this.dataService.viewlikedbooks().subscribe(d=>{
       this.userlikedbooks = d;
+      console.log("printing user liked books");
+      console.log(this.userlikedbooks);
     });
   }
 

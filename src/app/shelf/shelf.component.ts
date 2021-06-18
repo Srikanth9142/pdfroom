@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService }from 'src/app/services/data.service';
 import { Book } from 'src/app/models/book';
 import { take } from 'rxjs/operators';
-import { LikedBooks } from 'src/app/models/likedbooks';
+import { ShelfBooks } from 'src/app/models/shelfbooks';
 
 @Component({
   selector: 'app-shelf',
@@ -10,17 +10,19 @@ import { LikedBooks } from 'src/app/models/likedbooks';
   styleUrls: ['./shelf.component.scss']
 })
 export class ShelfComponent implements OnInit {
-  userlikedbooks:LikedBooks[]=[];
+  usershelfbooks:ShelfBooks[]=[];
   books:Book[]=[];
   constructor(private dataservice:DataService) { }
 
   ngOnInit() {
     this.dataservice.get_books().pipe(take(1)).subscribe(d=>{
+      //console.log(d);
       this.books = d;
 
     });
-    this.dataservice.viewlikedbooks().subscribe(d=>{
-      this.userlikedbooks = d;
+    this.dataservice.viewShelfBooks().subscribe(d=>{
+      this.usershelfbooks = d;
+      console.log("in shelf");
     });
   }
 

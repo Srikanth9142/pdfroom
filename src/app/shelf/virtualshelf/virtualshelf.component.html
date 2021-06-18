@@ -1,0 +1,25 @@
+<p>virtual shelf</p>
+<mat-card class="bookcard">
+    <!-- <mat-card-header> -->
+        <!-- <mat-card-title ><strong>{{book.name}}</strong></mat-card-title> -->
+        <h4><strong>{{book.name}}</strong></h4>
+        <!-- <mat-card-subtitle>{{book.author}}</mat-card-subtitle> -->
+        <p>{{book.author}}</p>
+    <!-- </mat-card-header> -->
+    <img  mat-card-image src="{{book.coverurl}}" alt="{{book.name}}">
+    <mat-card-actions>
+        <button mat-icon-button (click)="openBookToRead(book.bookid)" matTooltip="View Book">
+            <mat-icon>menu_book</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteBookFromShelf(book.bookid)" matTooltip="Remove from shelf">
+                <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="openBookDetails(book.bookid)" matTooltip="View Book details" >
+            <mat-icon>view_agenda</mat-icon>
+        </button>
+        <button mat-icon-button (click)="addBookToReadList(book.bookid)" matTooltip="Add to Readlist">
+            <mat-icon>add_task</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>
+<br>

@@ -1,4 +1,4 @@
-
+<!-- 
 <div *ngIf="!IsUserloggedIn()">
    <br>
 <button mat-raised-button color="primary" (click)="socialSignIn('google')">Signin with Google </button>
@@ -10,6 +10,51 @@
 </div>
 
 
-<img src="../assets/img/PDFROOM.png" class="banner">  
+<img src="../assets/img/PDFROOM.png" class="banner">   -->
 <!-- <img src="https://drive.google.com/open?id=1-lEUlQbGG6qSUJsvPfEwg9q6sfwSv164">          -->
 <!-- <div class="g-signin2" data-onsuccess="socialSignIn"></div> -->
+<!-- <div fxFlex="column">
+   <div>
+      <mat-card class="banner">
+         <div *ngIf="!IsUserloggedIn()">
+            <br>
+         <button mat-raised-button color="primary" (click)="socialSignIn('google')">Signin with Google </button>
+         <br><br>
+         </div> 
+         <div *ngIf="IsUserloggedIn()">
+            <button mat-raised-button color="warn" (click)="signOut()">
+               <mat-icon>power_settings_new</mat-icon> signout</button>
+         </div>
+         
+         <img  src="../assets/img/PDFROOM.png" class="banner">  
+      </mat-card>
+   </div>   
+</div> -->
+<!-- <div fxFlex="row" fxLayoutGap="10px">
+      <div fxFlex="50">
+         <img src="../assets/img/1.png" alt="banner1" >
+      </div>
+      <div fxFlex="50">
+         <img src="../assets/img/2.png" alt="banner1">
+      </div>
+
+</div> -->
+<!-- <div fxFlex="row">
+   <img src="../assets/img/on" alt="banner1" class="banner1">
+   <img src="../assets/img/two.jpg" alt="banner1" class="banner1">
+</div> -->
+
+
+<div fxFlex="row">
+   <!-- <div *ngIf="!IsUserloggedIn()"> -->
+   
+   <!-- </div>  -->
+   <!-- <div *ngIf="IsUserloggedIn()"> -->
+      
+   <!-- </div> -->
+   <div class="banner1">
+      <img src="../assets/img/1.png" alt="one">
+      <button  *ngIf="!IsUserloggedIn()" mat-raised-button color="accent" (click)="socialSignIn('google')" class="btn">Signin with Google <mat-icon>login</mat-icon></button>
+      <button  *ngIf="IsUserloggedIn()" mat-raised-button color="warn" (click)="signOut()" class="btn"><mat-icon>power_settings_new</mat-icon> signout</button>
+   </div>
+</div>

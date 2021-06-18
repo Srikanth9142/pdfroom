@@ -1,0 +1,7 @@
+<p>readlist works!</p>
+<div *ngFor="let book of readList">
+    <p>BookId: {{book.bookId}}</p>
+    <p>{{book.readListName}}</p>
+    <img src="{{baseUrlforReadListCoverphoto+book.coverPhoto}}" alt="image">
+    <button mat-raised-button color="primary" (click)="deleteBookFromReadList(book.bookId)">Delete</button>
+</div>

@@ -5,3 +5,18 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+::ng-deep .error-snackbar {
+  background-color: red !important;
+  color: white;
+}
+
+::ng-deep .success-snackbar {
+  background-color: green;
+  color:white;
+}
+
+::ng-deep .warn-snackbar {
+  background-color: orange;
+  color: white;
+}

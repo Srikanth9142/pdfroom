@@ -3,8 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  //serverurl: 'http://easymeet99.pythonanywhere.com',
+  production: true,
+  firebaseConfig:{
+    apiKey: "AIzaSyDpkPNqq6q123YRbk7oqfNcvHpzNjXYWvo",
+    authDomain: "pdfroom-9142.firebaseapp.com",
+    databaseURL: "https://pdfroom-9142.firebaseio.com",
+    projectId: "pdfroom-9142",
+    storageBucket: "pdfroom-9142.appspot.com",
+    messagingSenderId: "343804261630",
+    appId: "1:343804261630:web:fb5981993f511584ec21af",
+    measurementId: "G-YYCJXKMTVR"
+  },
+  //serverurl: 'https://easymeet99.pythonanywhere.com',
   serverurl:'http://localhost:8000'
 };
 
