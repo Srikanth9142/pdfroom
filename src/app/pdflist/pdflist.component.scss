@@ -21,6 +21,7 @@
     margin-bottom: 50px;
     //border: solid 3px #6200EE;
 }
+
 .categoryclass{
     width: 150px;
     height: 80px;
@@ -35,6 +36,15 @@
     //     //color: white;
     // }
 
+}
+.categoryclass:hover{
+    transition: 0.5s;
+    transform:scaleX(1.05);
+}
+.categoryclass-image{
+    margin-top: 10px;
+    width:150px;
+    height:80px;
 }
 // https://medium.com/letsboot/quick-start-with-angular-material-and-flex-layout-1b065aa1476c
 

@@ -19,4 +19,10 @@ export class AppComponent {
   viewProfile(){
     this.route.navigate(['/profile']);
   }
+  loginRedirect(){
+    this.route.navigate(['/login']);
+  }
+  goToReadList(){
+    this.route.navigate(['/readlist']);
+  }
 }

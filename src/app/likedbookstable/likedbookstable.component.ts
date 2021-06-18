@@ -51,7 +51,7 @@ export class LikedbookstableComponent implements OnInit {
       // this.books.forEach((id)=>{
       //   console.log(id.name);
       // });
-      console.log(this.books[1].author);
+      console.log("in table:"+this.books.length);
     });
 
     this.dataService.viewlikedbooks().pipe(take(1)).subscribe(d=>{

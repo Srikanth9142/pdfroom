@@ -2,7 +2,8 @@
 <mat-dialog-content class="mat-typography">
 <h1>Books in Your Shelf</h1>
 <div>
-  <app-book *ngFor="let u of userlikedbooks" [book]="books[u.bookid-1]" fxFlex="0 1 calc(25% - 10px)"></app-book>
+  <!-- <p>{{u.bookid}}</p> -->
+  <app-virtualshelf *ngFor="let u of usershelfbooks" [book]="books[u.bookid-1]" fxFlex="0 1 calc(25% - 10px)" ></app-virtualshelf>
 </div>
 
 </mat-dialog-content>

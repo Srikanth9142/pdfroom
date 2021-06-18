@@ -1,10 +1,9 @@
 
 <!-- <h3>Welcome <strong>{{userprofile.name}} Here are your books</strong></h3> -->
-<div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="flex-start">
+<div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="flex-start" >
         <mat-slide-toggle
           [formControl]="showlikes"
           (change)="onChange()"
-          [color]="accent"
           [checked]="checked"
           [disabled]="disabled">
         LikedBooks
@@ -12,40 +11,24 @@
       <button mat-fab color="primary" (click)="openDialog()">
         <mat-icon>library_books</mat-icon>
     </button>
-      <div *ngFor="let cate of categorylist" >
-      <mat-card fxFlex="0 1 calc(10% - 10px)" class="categoryclass" [routerLink]="['/category',cate]">
-          <mat-card-content>
-              <h4 matBadge="18" matBadgePosition="after" matBadgeColor="warn" > {{cate}}</h4>
-
-          </mat-card-content>
-      </mat-card>
+      <div *ngFor="let cate of categorylist | keyvalue" >
+        <mat-card fxFlex="0 1 calc(10% - 10px)" class="categoryclass" [routerLink]="['/category',cate.key]">
+            <img mat-card-image src="{{cate.value}}" class="categoryclass-image">
+        </mat-card>
       </div> 
 </div>
 
 <div class="container">
-<ng-container *ngIf="!showlikes.value">
-    <div fxLayout="row wrap" fxLayoutGap="0px" fxLayoutAlign="flex-start">
-<app-book *ngFor="let book of books" [book]="book" fxFlex="0 1 calc(25% - 10px)"></app-book>
-</div>
+    <ng-container *ngIf="!showlikes.value">
+        <div fxLayout="row wrap" fxLayoutGap="0px" fxLayoutAlign="flex-start">
+            <app-book *ngFor="let book of books" [book]="book" fxFlex="0 1 calc(25% - 10px)"></app-book>
+    </div>
 </ng-container>
 <ng-container *ngIf="showlikes.value">
     <br>
-    <div *ngFor="let u of userlikedbooks" class="bookcard" fxFlex="0 1 calc(25% - 10px)">
-        <!-- <p>{{books[u.bookid-1].name}}</p> -->
-        <mat-card>
-            <!-- <mat-card-header> -->
-                <h4><strong>{{books[u.bookid-1].name}}</strong></h4>
-                <p>{{books[u.bookid-1].author}}</p>
-            <!-- </mat-card-header> -->
-            <img  mat-card-image src="{{books[u.bookid-1].coverurl}}" alt="{{books[u.bookid-1].name}}">
-            <mat-card-actions>
-                <button mat-raised-button color="accent" [routerLink]="['/view',books[u.bookid-1].bookid]">View </button>
-                <!-- <button mat-raised-button> Add to shelf</button>
-                <button mat-button (click)="send_like($event,i.bookid)">
-                    <mat-icon>favorite_border</mat-icon>
-                </button> -->
-            </mat-card-actions>
-        </mat-card>
+    <div fxLayout="row wrap" fxLayoutGap="0px" fxLayoutAlign="flex-start">
+
+        <app-book *ngFor="let u of userlikedbooks" [book]="books[u.bookid-1]" fxFlex="0 1 calc(25% - 10px)"></app-book>
     </div>
 </ng-container>
 </div>

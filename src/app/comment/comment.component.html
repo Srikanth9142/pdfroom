@@ -1,0 +1,44 @@
+<div>
+
+</div>
+<!-- <div *ngFor="let comment of comments">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{comment.userName}}</mat-card-title>
+            <mat-card-subtitle>{{comment.message}}</mat-card-subtitle>        
+        </mat-card-header>
+            <div>
+            <button mat-icon-button color="primary">
+                <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
+            <p>{{comment.upvotes}}</p>
+        </div>
+    </mat-card>
+</div> -->
+<div>
+    <form novalidate [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <textarea type="text" matInput formControlName="comment" placeholder="Your comment" cols="30" rows="10" required> </textarea>
+        <br/>
+        <!-- <mat-error *ngIf="commentForm.get('comment').hasError('required')">Required field</mat-error> -->
+        <mat-error *ngIf="commentForm.get('comment').hasError('minLength')">Comment Should be 6 characters long</mat-error>
+        <mat-error *ngIf="commentForm.get('comment').hasError('maxLength')">Comment should not exceed 250 characters long</mat-error>
+    </mat-form-field>
+    <button type="submit" [disabled]="!commentForm.valid" mat-flat-button color="primary">Submit</button>
+    </form>
+</div>
+<div *ngIf="comments.length>0">
+    <mat-list *ngFor="let comment of comments">
+    <mat-list-item>
+        <p><strong>{{comment.userName}} </strong></p>
+        <p>   {{comment.message}}</p>
+        <button mat-icon-button color="primary" (click)="upvote(comment.commentId)">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <p>{{comment.upvotes}}</p>
+    </mat-list-item>
+    </mat-list>
+</div>
+<div *ngIf="comments.length==0">
+    <p style="color:red">No comments for this book</p>
+</div>

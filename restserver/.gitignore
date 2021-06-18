@@ -1,0 +1,9 @@
+media
+
+shelf/__pycache__
+
+shelf/migrations
+
+.firebase/
+.firebaserc
+firebase.json

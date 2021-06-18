@@ -1,0 +1,18 @@
+<div class="align-row">
+    <div>
+        <p>{{bookDetail.bookId}}</p>
+        <p>{{bookDetail.name}}</p>
+        <img src="{{bookDetail.coverphoto}}">
+        <p>{{bookDetail.author}}</p>
+        <p>{{bookDetail.category}}</p>
+        <p>{{bookDetail.likesCount}}</p>
+    </div>
+    <div class="editor">
+        <angular-editor  [(ngModel)]="htmlContent" [config]="notesEditor"></angular-editor>
+        <button mat-raised-button (click)="saveNotes()">Save</button>
+    </div>
+</div>
+
+<div>
+    <app-comment [bookId]="Bookid"></app-comment>
+</div>

@@ -26,3 +26,15 @@
  .piechart{
      margin-top: 50px;
  }
+
+ .bottom-left{
+     position: absolute;
+     top:500px;
+     left:50px;
+     width:500px;
+ }
+
+ .align-in-row{
+     display: flex;
+     justify-content: space-between;
+ }

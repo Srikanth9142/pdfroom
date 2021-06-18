@@ -18,6 +18,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProfileComponent } from './profile/profile.component';
 import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider } from "angular-6-social-login";
 import { ShelfComponent } from './shelf/shelf.component';
@@ -28,17 +29,26 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LikedbookstableComponent } from './likedbookstable/likedbookstable.component';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import { ChartsModule } from 'ng2-charts';
 import { PiechartComponent } from './piechart/piechart.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
 import { CategoryComponent } from './category/category.component';
+import { environment } from 'src/environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import { CommentComponent } from './comment/comment.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { ToastrModule } from 'ngx-toastr';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { VirtualshelfComponent } from './shelf/virtualshelf/virtualshelf.component';
+import { ReadlistComponent } from './readlist/readlist.component';
 
-
-
-
-  const client_id:string = '413051260737-ln0fa4c6v2g9t2fs0g7vcj1055550lfe.apps.googleusercontent.com';
+  const client_id:string = '343804261630-fs9851ibnqmp3js4hp90v4vis8khjkt3.apps.googleusercontent.com';
     
   export function getAuthServiceConfigs() {
     let config = new AuthServiceConfig([
@@ -64,6 +74,10 @@ import { CategoryComponent } from './category/category.component';
     LikedbookstableComponent,
     PiechartComponent,
     CategoryComponent,
+    CommentComponent,
+    BookDetailComponent,
+    VirtualshelfComponent,
+    ReadlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,10 +103,18 @@ import { CategoryComponent } from './category/category.component';
     MatPaginatorModule,
     MatSortModule,
     MatInputModule,
+    MatSelectModule,
     ChartsModule,
     MatDialogModule,
     MatBadgeModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatDividerModule,
+    AngularEditorModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ToastrModule.forRoot()
   ],
   entryComponents: [ShelfComponent,],
   providers: [

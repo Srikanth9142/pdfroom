@@ -10,13 +10,18 @@
             <button mat-icon-button [routerLink]="['/view',book.bookid]" matTooltip="View Book">
                 <mat-icon>menu_book</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="Add to Shelf">
+            <button mat-icon-button (click)="saveToShelf($event,book.bookid)" matTooltip="Add to Shelf">
                     <mat-icon>library_books</mat-icon>
             </button>
-            <button mat-icon-button (click)="send_like($event,book.bookid)">
+            <button mat-icon-button [routerLink]="['/details',book.bookid]" matTooltip="View Book details" >
+                <mat-icon>view_agenda</mat-icon>
+            </button>
+            <button mat-icon-button (click)="sendLike($event,book.bookid)">
                 <mat-icon>favorite_border</mat-icon>
             </button>
-            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            <button mat-icon-button (click)="saveToReadList($event, book.bookid)" matTooltip="Add to Readlist">
+                <mat-icon>add_task</mat-icon>
+            </button>
         </mat-card-actions>
     </mat-card>
     <br>
