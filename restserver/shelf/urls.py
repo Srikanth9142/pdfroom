@@ -21,5 +21,9 @@ urlpatterns=[
     path('readListBookDelete', views.ReadListBookDelete.as_view(), name="Delete book from Readlist"),
     path('viewNotes/<str:token>/<int:book_id>', views.ViewNotes.as_view(), name="View to fetch notes"),
     path('saveNotes', views.SaveNotes.as_view(), name="Save notes view"),
-    path('deleteNotes', views.DeleteNotes.as_view(), name=" Delte notes view")
+    path('deleteNotes', views.DeleteNotes.as_view(), name=" Delte notes view"),
+    path('filterprofiles/<str:user_name>', views.FilterUserProfiles.as_view(), name="Filter readers"),
+    path('getprofile/<str:user_name>', views.GetUserProfileByUserName.as_view(), name="Get user profile"),
+    path('getcomments/<str:user_name>', views.ViewCommentsOfAnotherUser.as_view(), name="Get other user comments"),
+    path('userlikedbooks/<str:user_name>', views.GetLikedBooksOfUser.as_view(), name=" Get liked books of user")
 ]

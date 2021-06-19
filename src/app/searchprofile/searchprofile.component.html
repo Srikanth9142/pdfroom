@@ -1,0 +1,41 @@
+<div *ngIf="userProfile">
+<mat-card class="profile-card"> 
+    <img  mat-card-image src="{{userProfile.photoid}}" alt="{{userProfile.name}}">
+    
+    <p><strong>{{userProfile.name}}</strong></p>
+    <mat-card-content>
+      <p><strong>Points: </strong> {{userProfile.points}}</p>
+    </mat-card-content>
+</mat-card>
+</div>
+
+<div class="bottom-left" *ngIf="commentsMadeByUser">
+    <div *ngIf="commentsMadeByUser.length==0">
+        <p>No comments made!!!</p>
+    </div>
+    <div *ngIf="commentsMadeByUser.length>0">
+        <h4>Comments made by {{userName}}</h4>
+        <mat-accordion *ngFor="let comment of commentsMadeByUser">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title>{{comment.message}}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Book Name: {{getBookNameById(comment.bookId)}}</p>
+            <div class="align-in-row">
+                <p>Upvotes: {{comment.upvotes}}</p>
+                <button mat-raised-button color="primary" (click)="viewBookDetails(comment.bookId)">View Details</button>
+            </div>
+        </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    
+  </div>
+<div *ngIf="likedbooks" class="user-likedbooks-section">
+    <h4>Books liked by {{userName}}</h4>
+    <mat-grid-list cols="2">
+        <mat-grid-tile *ngFor="let likedbook of likedbooks">
+            <img src={{books[likedbook.bookid-1].coverurl}} alt="books[likedbook.bookid-1].name" [routerLink]="['/details',likedbook.bookid]" class="user-liked-book-image">
+            <!-- <p>{{books[likedbook.bookid-1].name}}</p> -->
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
