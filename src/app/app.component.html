@@ -10,8 +10,13 @@
       <div fxShow="true" fxHide.lt-md="true">
         <mat-form-field appearance="outline">
           <mat-label>search here</mat-label>
-          <input matInput placeholder="Book name">
+          <input matInput placeholder="Book name" [(ngModel)]="searchKey" (keyup.enter)="searchUsers($event)" [matAutocomplete]="auto">
           <mat-icon matSuffix>search</mat-icon>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let person of profileList" (click)="goToProfile(person.name)">
+              {{person.name}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
         <button mat-button (click)="viewlist()">Books</button>
         <!-- <button  mat-button (click)="viewProfile()">

@@ -30,6 +30,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { LikedbookstableComponent } from './likedbookstable/likedbookstable.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ChartsModule } from 'ng2-charts';
 import { PiechartComponent } from './piechart/piechart.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -38,6 +39,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { CategoryComponent } from './category/category.component';
 import { environment } from 'src/environments/environment';
 import {AngularFireModule} from '@angular/fire';
@@ -47,6 +49,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { VirtualshelfComponent } from './shelf/virtualshelf/virtualshelf.component';
 import { ReadlistComponent } from './readlist/readlist.component';
+import { SearchprofileComponent } from './searchprofile/searchprofile.component';
 
   const client_id:string = '343804261630-fs9851ibnqmp3js4hp90v4vis8khjkt3.apps.googleusercontent.com';
     
@@ -78,6 +81,7 @@ import { ReadlistComponent } from './readlist/readlist.component';
     BookDetailComponent,
     VirtualshelfComponent,
     ReadlistComponent,
+    SearchprofileComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +116,8 @@ import { ReadlistComponent } from './readlist/readlist.component';
     MatMenuModule,
     MatExpansionModule,
     MatDividerModule,
+    MatAutocompleteModule,
+    MatGridListModule,
     AngularEditorModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ToastrModule.forRoot()

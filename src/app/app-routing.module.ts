@@ -10,6 +10,7 @@ import { CategoryComponent } from './category/category.component';
 import { CommentComponent } from './comment/comment.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ReadlistComponent } from './readlist/readlist.component';
+import { SearchprofileComponent } from './searchprofile/searchprofile.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path:'viewcomments/:bookId',component:CommentComponent,canActivate:[AuthGuardGuard]},
   {path:'details/:bookId',component:BookDetailComponent, canActivate:[AuthGuardGuard]},
   {path:'readlist', component:ReadlistComponent, canActivate:[AuthGuardGuard]},
+  {path:'profile/:username', component:SearchprofileComponent, canActivate:[AuthGuardGuard]},
   {path:'**',component:LoginComponent}
 ];
 

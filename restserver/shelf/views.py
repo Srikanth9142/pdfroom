@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
+from django.db.models import Q
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -16,7 +17,7 @@ from .exceptions import TokenExpiredException
 from .constants import SESSION_EXPIRED_MESSAGE, EXISTING_BOOK_READLIST_MESSAGE
 
 def home(request):
-    return HttpResponse("neeku ardamavutundaa")
+    return HttpResponse("Home page works")
 
 class BookList(generics.ListCreateAPIView):
     #permission_classes = [permissions.IsAdminUser]
@@ -311,4 +312,54 @@ class DeleteNotes(APIView):
         notes_instance = Note.objects.get(bookid=book_instance, email=user_email)
         notes_instance.delete()
         return Response("Notes Deleted Successfully", status=200)
-        
+    
+
+class FilterUserProfiles(generics.ListAPIView):
+    """
+    View to return list of reader's usernames match with searchKey in input field
+    """
+    serializer_class = UserProfileSerializer
+    def get_queryset(self):
+        user_name = self.kwargs['user_name']
+        print("=== search for:",user_name)
+        return Reader.objects.filter(Q(name__startswith=user_name))
+
+
+class GetUserProfileByUserName(generics.ListAPIView):
+    """
+    View to provide profile of particular reader
+    """
+    serializer_class = UserProfileSerializer
+    def get_queryset(self):
+        user_name = _process_space_from_username(self.kwargs['user_name'])
+        return Reader.objects.filter(name=user_name)
+
+
+def _process_space_from_username(user_name: str):
+    """
+    Replace '%20' from usernames and replace with space
+    """
+    modified_user_name = user_name.replace("%20", "")
+    return modified_user_name
+
+
+class ViewCommentsOfAnotherUser(generics.ListAPIView):
+    serializer_class = ViewCommentsOfUserSerializer
+
+    def get_queryset(self):
+        user_email = get_email_with_username(self.kwargs['user_name'])
+        return Comment.objects.filter(email=user_email)
+
+
+
+def get_email_with_username(user_name: str):
+    return Reader.objects.get(name=user_name).email
+
+
+class GetLikedBooksOfUser(generics.ListAPIView):
+    serializer_class = LikesViewSerializer
+
+    def get_queryset(self):
+        user_name = _process_space_from_username(self.kwargs['user_name'])
+        user_email = get_email_with_username(user_name)
+        return Analytic.objects.filter(email = user_email)

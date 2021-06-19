@@ -335,5 +335,49 @@ export class DataService {
       }).pipe(catchError(this.processHTTPMsgService.handleError));
     }
 
+    /**
+     * @description Method which filters the readers based on the user name
+     * @param userName - Search key entered by the user
+     */
+    searchUserProfile(userName: string){
+      return this.http.get<UserProfile[]>(`${environment.serverurl}/shelf/filterprofiles/`+userName).pipe(
+        map(a=>a.map(t=>{return new UserProfile(t['name'],t['email'],t['photoid'],t['points'])})) 
+      )
+    }
+
+    /**
+     * @description Method which get UserProfile based on userName
+     * @param userName - user name of the user for which user to be fetched
+     */
+    getProfileByUserName(userName: string){
+      return this.http.get<UserProfile[]>(`${environment.serverurl}/shelf/getprofile/`+userName).pipe(
+        map(a=>a.map(t=>{return new UserProfile(t['name'],t['email'],t['photoid'],t['points'])})) 
+      )
+    }
+
+    /**
+   * @description Method to fetch all comments made by another user from backend
+   * @param userName - user name of user
+   */
+  fetchAllCommentsOfAnotherUser(userName:string):Observable<Comment[]>{
+    return this.http.get<Comment[]>(
+      `${environment.serverurl}/shelf/getcomments/`+userName).pipe(
+        map(a=>a.map(t=>{return new Comment(t['comment_id'],t['email'],t['user_name'],t['message'],t['upvotes'],t['bookid'])})
+        ), catchError(this.processHTTPMsgService.handleError)
+      );
+    }
+
+    /**
+     * @description Method to fetch liked books of user
+     * @param userName - username of user
+     */
+    viewLikedBooksOfUser(userName: string):Observable<LikedBooks[]>{
+      return this.http.get<LikedBooks[]>(
+        `${environment.serverurl}/shelf/userlikedbooks/`+userName).pipe(
+          map(a=>a.map(t=>{return new LikedBooks(t.bookid)}))
+        );
+        
+    }
+
 }
 
