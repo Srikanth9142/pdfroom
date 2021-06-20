@@ -10,11 +10,17 @@
       <div fxShow="true" fxHide.lt-md="true">
         <mat-form-field appearance="outline">
           <mat-label>search here</mat-label>
-          <input matInput placeholder="Book name" [(ngModel)]="searchKey" (keyup.enter)="searchUsers($event)" [matAutocomplete]="auto">
+          <input matInput placeholder="Book name" [(ngModel)]="searchKey" (keyup)="searchUsers($event)" [matAutocomplete]="auto">
           <mat-icon matSuffix>search</mat-icon>
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option *ngFor="let person of profileList" (click)="goToProfile(person.name)">
               {{person.name}}
+            </mat-option>
+            <mat-option *ngIf="profileList.length==0 && openResults==true" panelWidth="80">
+              <div class="no-users-found">
+                <p style="color:red">No matching users found!!</p>
+                <!-- <img src="https://img.icons8.com/emoji/48/000000/worried-face.png"/> -->
+              </div>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -30,7 +36,7 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  
+  <router-outlet></router-outlet>
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav>
       <mat-nav-list>

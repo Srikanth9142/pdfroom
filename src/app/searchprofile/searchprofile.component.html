@@ -32,6 +32,9 @@
   </div>
 <div *ngIf="likedbooks" class="user-likedbooks-section">
     <h4>Books liked by {{userName}}</h4>
+    <div *ngIf="likedbooks.length==0">
+        <p>No books liked!!</p>
+    </div>
     <mat-grid-list cols="2">
         <mat-grid-tile *ngFor="let likedbook of likedbooks">
             <img src={{books[likedbook.bookid-1].coverurl}} alt="books[likedbook.bookid-1].name" [routerLink]="['/details',likedbook.bookid]" class="user-liked-book-image">

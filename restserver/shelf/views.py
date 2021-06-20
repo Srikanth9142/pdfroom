@@ -321,6 +321,7 @@ class FilterUserProfiles(generics.ListAPIView):
     serializer_class = UserProfileSerializer
     def get_queryset(self):
         user_name = self.kwargs['user_name']
+        print(user_name)
         print("=== search for:",user_name)
         return Reader.objects.filter(Q(name__startswith=user_name))
 

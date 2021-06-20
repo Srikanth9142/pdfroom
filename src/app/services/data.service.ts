@@ -340,6 +340,7 @@ export class DataService {
      * @param userName - Search key entered by the user
      */
     searchUserProfile(userName: string){
+      console.log("service username: "+userName);
       return this.http.get<UserProfile[]>(`${environment.serverurl}/shelf/filterprofiles/`+userName).pipe(
         map(a=>a.map(t=>{return new UserProfile(t['name'],t['email'],t['photoid'],t['points'])})) 
       )

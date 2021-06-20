@@ -1,4 +1,4 @@
- import { Component } from '@angular/core';
+ import { Component,OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { DataService } from './services/data.service';
 import { UserProfile } from './models/userprofile';
@@ -10,9 +10,13 @@ import { UserProfile } from './models/userprofile';
 export class AppComponent {
   title = 'Virtaul Book-Shelf';
   searchKey:string = "";
-  profileList: UserProfile[];
+  profileList: UserProfile[]=[];
   openResults:boolean = false;
   constructor(private route:Router, private dataService: DataService){}
+
+  ngOninit(){
+
+  }
 
   home(){
     this.route.navigate(['/login']);
@@ -29,15 +33,18 @@ export class AppComponent {
   goToReadList(){
     this.route.navigate(['/readlist']);
   }
-  searchUsers(event: Event){
+  searchUsers(event){
     //console.log(this.searchKey+" "+event.);
-      console.log("click submit: "+this.searchKey);
-      this.dataService.searchUserProfile(this.searchKey).subscribe((data)=>{
-        console.log("response=")
-        this.profileList = data;
-        console.log(this.profileList);
-        this.openResults = true;
-      })
+    this.openResults = false;
+      if(event.keyCode == 13){
+        console.log("click submit: "+this.searchKey);
+        this.dataService.searchUserProfile(this.searchKey).subscribe((data)=>{
+          console.log("response=")
+          this.profileList = data;
+          console.log(this.profileList);
+          this.openResults = true;
+        });
+      }
   }
 
   goToProfile(userName: string){

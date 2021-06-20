@@ -18,11 +18,27 @@ export class SearchprofileComponent implements OnInit {
   commentsMadeByUser: Comment[];
   books:Book[]=[];
   likedbooks:LikedBooks[]=[];
+  //loaded:boolean = false;
 
   constructor(private route:ActivatedRoute, private dataService:DataService, private router: Router) { }
 
   ngOnInit() {
-    this.userName = this.route.snapshot.params['username'];
+    this.route.paramMap.subscribe(paramMap=>{
+      this.userName = paramMap.get('username');
+      console.log("username:"+this.userName);
+      this.reload();
+    });  
+  }
+
+  getBookNameById(bookId: number):string{
+    return this.books[bookId-1].name;
+  }
+  
+  viewBookDetails(bookId: number){
+    this.router.navigate(['/details',bookId]);
+  }
+
+  reload(){
     this.dataService.getProfileByUserName(this.userName).subscribe((data)=>{
       this.userProfile = data[0];
     });
@@ -40,14 +56,6 @@ export class SearchprofileComponent implements OnInit {
     this.dataService.viewLikedBooksOfUser(this.userName).subscribe(d=>{
       this.likedbooks = d;
     });
-  }
-
-  getBookNameById(bookId: number):string{
-    return this.books[bookId-1].name;
-  }
-  
-  viewBookDetails(bookId: number){
-    this.router.navigate(['/details',bookId]);
   }
 
 }
