@@ -6,11 +6,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 
-from .models import Book,Analytic,Reader,ShelfBook,Comment,ReadList, Note
+from .models import Book,Analytic,Reader,ShelfBook,Comment,ReadList, Note, Follower
 from .serializers import (BookSerializer,LikesViewSerializer,SaveUserSerializer,
                             UserProfileSerializer,ShelfViewSerializer,CommentViewSerializer,
                             BookDetailsSerializer, ReadListViewSerializer,ViewCommentsOfUserSerializer,
-                            ViewNotesSerializer)
+                            ViewNotesSerializer, FollowerListSerialzer)
 from django_filters.rest_framework import DjangoFilterBackend
 from .checkserver import RetrieveUserInfo,RetrieveEmail
 from .exceptions import TokenExpiredException
@@ -364,3 +364,63 @@ class GetLikedBooksOfUser(generics.ListAPIView):
         user_name = _process_space_from_username(self.kwargs['user_name'])
         user_email = get_email_with_username(user_name)
         return Analytic.objects.filter(email = user_email)
+
+
+class FollowSomeOne(APIView):
+    """
+    View that helps to follow someone
+    """
+    def post(self,request):
+        following_person_user_name = _process_space_from_username(request.data.get('user_name'))
+        following_person_email = get_email_with_username(following_person_user_name)
+        follower_email = RetrieveEmail(request.data.get("id_token"))
+        follower_obj_instance = Reader.objects.get(email=follower_email)
+        following_obj_instance = Reader.objects.get(email=following_person_email)
+        if(Follower.objects.filter(follower=follower_obj_instance, following=following_obj_instance)):
+            print("Duplicate follow request")
+            return Response("Already following", status=501)
+        follow_model_instance = Follower(follower=follower_obj_instance, following=following_obj_instance)
+        follow_model_instance.save()
+        return Response("Started Following", status=200)
+
+
+class viewFollowersList(generics.ListAPIView):
+    """
+    View to get the users that current user following
+    """
+    serializer_class = FollowerListSerialzer
+    def get_queryset(self):
+        user_email = RetrieveEmail(self.kwargs['token'])
+        reader_obj = Reader.objects.get(email=user_email)
+        return Follower.objects.filter(follower=reader_obj)
+
+
+class UnfollowSomeOne(APIView):
+    """
+    View to unfollow someone
+    """
+    def post(self, request):
+        try:
+            user_email = RetrieveEmail(request.data.get('id_token'));
+        except TokenExpiredException:
+            return Response(SESSION_EXPIRED_MESSAGE, status=401)
+        following_person_user_name = _process_space_from_username(request.data.get('user_name'))
+        following_person_email = get_email_with_username(following_person_user_name)
+        following_obj_instance = Reader.objects.get(email=following_person_email)
+        follower_email = RetrieveEmail(request.data.get("id_token"))
+        follower_obj_instance = Reader.objects.get(email=follower_email)
+        follow_model_instance = Follower(follower=follower_obj_instance, following=following_obj_instance)
+        follow_model_instance.delete()
+        return Response("Unfollowed successfully", status=200)
+
+
+class FilterBooks(generics.ListAPIView):
+    """
+    View to return list of reader's usernames match with searchKey in input field
+    """
+    serializer_class = BookSerializer
+    def get_queryset(self):
+        book_name = self.kwargs['book_name']
+        print(book_name)
+        print("=== search for:",book_name)
+        return Book.objects.filter(Q(name__startswith=book_name))

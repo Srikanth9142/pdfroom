@@ -6,9 +6,22 @@
     <mat-card-content>
       <p><strong>Points: </strong> {{userProfile.points}}</p>
     </mat-card-content>
+    <mat-card-actions>
+        <div class="user-profile-actions">
+            <button mat-mini-fab matTooltip="Follow user" color="primary">
+                <mat-icon>person_add_alt</mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="Unfollow user" color="warn">
+                <mat-icon>person_remove</mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="Share user profile">
+                <mat-icon>share</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
 </mat-card>
 </div>
-
+<button mat-raised-button (click)="followUser(userProfile.name)">Follow</button>
 <div class="bottom-left" *ngIf="commentsMadeByUser">
     <div *ngIf="commentsMadeByUser.length==0">
         <p>No comments made!!!</p>

@@ -61,8 +61,8 @@ export class NotificationService {
    * 
    * @param successMessage: Message to display
    */
-  notifyInfoMessageToUser(successMessage: string):any{
-    this.toastrService.info(successMessage, "Info",{
+  notifyInfoMessageToUser(infoMessage: string):any{
+    this.toastrService.info(infoMessage, "Info",{
       timeOut: 3000,
       progressBar: true,
       progressAnimation: "decreasing",

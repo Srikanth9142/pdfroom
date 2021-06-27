@@ -9,19 +9,40 @@
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.lt-md="true">
         <mat-form-field appearance="outline">
-          <mat-label>search here</mat-label>
-          <input matInput placeholder="Book name" [(ngModel)]="searchKey" (keyup)="searchUsers($event)" [matAutocomplete]="auto">
-          <mat-icon matSuffix>search</mat-icon>
+          <mat-label>search here ...</mat-label>
+         <!--  If the route is profile search for username -->
+          <input matInput *ngIf="route.url.includes('/profile') && route.url!='/login'" placeholder="Enter User name" [(ngModel)]="searchKey" (keyup)="searchUsers($event)" [matAutocomplete]="auto">
+         <!--  If the route is not profile search for book -->
+          <input matInput *ngIf="route.url.includes('/profile')== false && route.url!='/login'" placeholder="Enter Book name" [(ngModel)]="searchKey" (keyup)="searchBooks($event)" [matAutocomplete]="auto">
+
+          <mat-icon *ngIf="route.url.includes('/profile')== false" matSuffix>search</mat-icon>
+          <mat-icon *ngIf="route.url.includes('/profile')" matSuffix>person_search</mat-icon>
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let person of profileList" (click)="goToProfile(person.name)">
-              {{person.name}}
-            </mat-option>
-            <mat-option *ngIf="profileList.length==0 && openResults==true" panelWidth="80">
-              <div class="no-users-found">
-                <p style="color:red">No matching users found!!</p>
-                <!-- <img src="https://img.icons8.com/emoji/48/000000/worried-face.png"/> -->
-              </div>
-            </mat-option>
+           <!--  If profile component show results of filtered users -->
+            <div *ngIf="route.url.includes('/profile')">
+              <mat-option *ngFor="let person of profileList" (click)="goToProfile(person.name)">
+                {{person.name}}
+              </mat-option>
+
+              <!-- No results found -->
+              <mat-option *ngIf="profileList.length==0 && openProfileResults==true" panelWidth="80">
+                <div class="no-users-found">
+                  <p style="color:red">No matching users found!!</p>
+                </div>
+              </mat-option>
+            </div>
+
+            <!-- Results from book search -->
+            <div *ngIf="route.url!='/profile'">
+              <mat-option *ngFor="let book of bookList" (click)="goToBook(book.bookid)">
+                {{book.name}}
+              </mat-option>
+              <mat-option *ngIf="bookList.length==0 && openBookResults==true" panelWidth="80">
+                <div class="no-users-found">
+                  <p style="color:red">No matching Books found!!</p>
+                </div>
+              </mat-option>
+            </div>
           </mat-autocomplete>
         </mat-form-field>
         <button mat-button (click)="viewlist()">Books</button>
@@ -32,6 +53,8 @@
         <mat-menu #beforeMenu="matMenu" xPosition="before">
           <button mat-menu-item (click)="viewProfile()">Profile</button>
           <button mat-menu-item (click)="goToReadList()">Your ReadList</button>
+          <button  *ngIf="!IsUserloggedIn()" mat-menu-item (click)="socialSignIn('google')">Signin with Google <mat-icon>login</mat-icon></button>
+          <button  *ngIf="IsUserloggedIn()" mat-menu-item (click)="signOut()"><mat-icon>power_settings_new</mat-icon> signout</button>
         </mat-menu>
       </div>
     </mat-toolbar-row>
@@ -48,6 +71,8 @@
         <mat-menu #beforeMenu="matMenu" xPosition="before">
           <button mat-menu-item (click)="viewProfile()">Profile</button>
           <button mat-menu-item (click)="goToReadList()">Your ReadList</button>
+          <button  *ngIf="!IsUserloggedIn()" mat-menu-item (click)="socialSignIn('google')">Signin with Google <mat-icon>login</mat-icon></button>
+          <button  *ngIf="IsUserloggedIn()" mat-menu-item (click)="signOut()">Logout <mat-icon>power_settings_new</mat-icon> </button>
         </mat-menu>
         <span (click)="loginRedirect()">
           <mat-icon>login</mat-icon></span>

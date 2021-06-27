@@ -1,5 +1,7 @@
 from django.db import models
+from django.utils.timezone import now
 import uuid
+
 
 # Create your models here.
 class Book(models.Model):
@@ -55,3 +57,18 @@ class Note(models.Model):
     bookid = models.ForeignKey(Book, on_delete=models.CASCADE)
     email = models.EmailField()
     body = models.CharField(max_length=700)
+
+
+class Follower(models.Model):
+    follower = models.ForeignKey(Reader, on_delete=models.CASCADE, related_name="follower_user_object")
+    following = models.ForeignKey(Reader, on_delete=models.CASCADE, related_name="following_user_object")
+    time = models.DateTimeField(default=now, blank=True)
+
+    def get_following_person_profile_picture(self):
+        return Reader.objects.get(email=self.following.email).photoid
+    
+    def get_following_person_name(self):
+        return Reader.objects.get(email=self.following.email).name
+    
+    def get_following_person_points(self):
+        return Reader.objects.get(email=self.following.email).points

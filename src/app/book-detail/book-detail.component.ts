@@ -12,7 +12,7 @@ import { NotificationService } from '../services/notification.service';
   styleUrls: ['./book-detail.component.scss']
 })
 export class BookDetailComponent implements OnInit {
-  Bookid:number;
+  bookId:number;
   bookDetail:BookDetails;
   editorrConfig:AngularEditorConfig;
   notesEditor: AngularEditorConfig = {
@@ -28,23 +28,31 @@ export class BookDetailComponent implements OnInit {
   constructor(private route:ActivatedRoute, private dataService:DataService, private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.Bookid = this.route.snapshot.params['bookId'];
-    this.dataService.viewBookDetails(this.Bookid).subscribe(d=>{
-      console.log(d);
-      this.bookDetail = d[0];
-    });
-    this.dataService.viewNotes(this.Bookid).subscribe(data=>{
-      this.htmlContent = data[0].body;
-    })
 
+    this.route.paramMap.subscribe(paramMap=>{
+      this.bookId = paramMap.get('bookId');
+      console.log("username:"+this.bookId);
+      this.reload();
+    });
   }
+
   saveNotes(){
     console.log(this.htmlContent);
-    this.dataService.saveNotes(this.Bookid, this.htmlContent).subscribe(()=>{
+    this.dataService.saveNotes(this.bookId, this.htmlContent).subscribe(()=>{
       this.notificationService.notifySuccessMessageToUser("Notes saved");
     }, errMes=>{
       this.notificationService.notifyErrorMessageToUser(errMes);
     })
+  }
+
+  reload(){
+    this.dataService.viewBookDetails(this.bookId).subscribe(d=>{
+      console.log(d);
+      this.bookDetail = d[0];
+    });
+    this.dataService.viewNotes(this.bookId).subscribe(data=>{
+      this.htmlContent = data[0].body;
+    });
   }
 
 }

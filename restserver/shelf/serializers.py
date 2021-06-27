@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book,Analytic,Reader,ShelfBook,Comment, ReadList, Note
+from .models import Book,Analytic,Reader,ShelfBook,Comment, ReadList, Note, Follower
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
@@ -54,3 +54,12 @@ class ViewNotesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = '__all__'
+
+
+class FollowerListSerialzer(serializers.ModelSerializer):
+    person_profile_picture = serializers.CharField(source='get_following_person_profile_picture', read_only=True)
+    person_name = serializers.CharField(source='get_following_person_name', read_only=True)
+    person_points = serializers.IntegerField(source='get_following_person_points', read_only=True)
+    class Meta:
+        model = Follower
+        fields = ('person_name', 'person_profile_picture', 'person_points', 'time')

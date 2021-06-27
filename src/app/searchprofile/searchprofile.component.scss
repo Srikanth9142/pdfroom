@@ -35,3 +35,8 @@
     transition: 0.5s;
     transform: scale(1.05);
 }
+
+.user-profile-actions{
+  display:flex;
+  justify-content: space-around;
+}

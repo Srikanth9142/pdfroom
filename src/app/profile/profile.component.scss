@@ -38,3 +38,20 @@
      display: flex;
      justify-content: space-between;
  }
+
+.following-section{
+    position:absolute;
+    width:500px;
+    bottom:50px;
+    right:50px;
+    
+}
+
+.header-image{
+    // profile picture of following person
+
+    img{
+        border-radius: 50%;
+        background-size: cover;
+    }
+}

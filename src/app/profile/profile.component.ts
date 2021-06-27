@@ -9,13 +9,15 @@ import { ShelfBooks } from '../models/shelfbooks';
 import { Comment } from '../models/comment';
 import { NotificationService } from '../services/notification.service';
 import { Router } from '@angular/router';
+import { FollowingPerson } from '../models/followingPerson';
+
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit{
  
   //userprofile:any;
   profileuser:UserProfile[]=[];
@@ -23,15 +25,15 @@ export class ProfileComponent implements OnInit {
   likedbooks:LikedBooks[]=[];
   shelfbooks:ShelfBooks[]=[];
   commentsMadeByUser: Comment[];
+  followingList: FollowingPerson[]=[];
   bookslen:number=0;
   likedbookslen:number=0;
   shelfbookslen:number=0;
   displayedColumns: string[] = ['BookId', 'Name', 'Author'];
   dataSource = LikedBooks;
-  constructor(private dataService:DataService, private router: Router, private notificationService: NotificationService) { }
-  // showbook(bid:number){
-
-  // }
+  constructor(private dataService:DataService, private router: Router, private notificationService: NotificationService) { 
+    
+  }
   ngOnInit() {
    
     this.dataService.getUserProfile().pipe(take(1)).subscribe(d=>{
@@ -70,6 +72,13 @@ export class ProfileComponent implements OnInit {
       console.log("Comments made by user");
     }, errMess=>{
       this.notificationService.notifyErrorMessageToUser(errMess);
+    });
+    
+    this.dataService.viewFollowersList().subscribe((data)=>{
+      console.log(data);
+      this.followingList = data;
+    },(errMes)=>{
+      this.notificationService.notifyErrorMessageToUser(errMes);
     });
  
     

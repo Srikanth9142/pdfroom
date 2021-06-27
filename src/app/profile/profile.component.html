@@ -55,3 +55,19 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
+
+<!-- This is for following section -->
+<div class="following-section">
+  <p>Followers list</p>
+  <mat-card>
+    <mat-card *ngFor="let person of followingList">
+      <mat-card-header>
+          <img mat-card-avatar src="{{person.profilePicture}}" alt="{{person.name}}">
+        <mat-card-title>{{person.name}}</mat-card-title>
+        <!-- Using Datepipe format the Datetime -->
+        <mat-card-subtitle>Following since {{person.time | date:'mediumDate'}}</mat-card-subtitle>
+        <p>Points: {{person.points}}</p>
+      </mat-card-header>
+    </mat-card>
+  </mat-card>
+</div>

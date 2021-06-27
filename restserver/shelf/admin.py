@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book,Analytic,Reader,ShelfBook, Comment, ReadList, Note
+from .models import Book,Analytic,Reader,ShelfBook, Comment, ReadList, Note, Follower
 # Register your models here.
 admin.site.register(Book)
 admin.site.register(Analytic)
@@ -8,3 +8,4 @@ admin.site.register(ShelfBook)
 admin.site.register(Comment)
 admin.site.register(ReadList)
 admin.site.register(Note)
+admin.site.register(Follower)

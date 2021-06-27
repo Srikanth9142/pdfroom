@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { NotificationService } from '../services/notification.service';
 import { UserProfile } from '../models/userprofile';
 import { Comment } from '../models/comment';
 import { Router } from '@angular/router';
@@ -20,7 +21,8 @@ export class SearchprofileComponent implements OnInit {
   likedbooks:LikedBooks[]=[];
   //loaded:boolean = false;
 
-  constructor(private route:ActivatedRoute, private dataService:DataService, private router: Router) { }
+  constructor(private route:ActivatedRoute, private dataService:DataService, 
+    private router: Router, private notificationService: NotificationService, private clipboard: Clipboard) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap=>{
@@ -58,4 +60,13 @@ export class SearchprofileComponent implements OnInit {
     });
   }
 
+  followUser(userName: string){
+    console.log("Request sent to follow"+userName);
+    this.dataService.followUser(userName).subscribe(()=>{
+      this.notificationService.notifySuccessMessageToUser("Started following "+userName);
+    },(errMes)=>{
+      this.notificationService.notifyErrorMessageToUser(errMes);
+    });
+  }
+  
 }

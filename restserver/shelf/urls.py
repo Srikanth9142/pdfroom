@@ -23,7 +23,11 @@ urlpatterns=[
     path('saveNotes', views.SaveNotes.as_view(), name="Save notes view"),
     path('deleteNotes', views.DeleteNotes.as_view(), name=" Delte notes view"),
     path('filterprofiles/<str:user_name>', views.FilterUserProfiles.as_view(), name="Filter readers"),
+    path('filterbooks/<str:book_name>', views.FilterBooks.as_view(), name="Filter Books"),
     path('getprofile/<str:user_name>', views.GetUserProfileByUserName.as_view(), name="Get user profile"),
     path('getcomments/<str:user_name>', views.ViewCommentsOfAnotherUser.as_view(), name="Get other user comments"),
-    path('userlikedbooks/<str:user_name>', views.GetLikedBooksOfUser.as_view(), name=" Get liked books of user")
+    path('userlikedbooks/<str:user_name>', views.GetLikedBooksOfUser.as_view(), name=" Get liked books of user"),
+    path('follow',views.FollowSomeOne.as_view(), name="Start following"),
+    path('viewfollowing/<str:token>',views.viewFollowersList.as_view(), name="View followers"),
+    path('unfollow', views.UnfollowSomeOne.as_view(), name="Unfollow user")
 ]

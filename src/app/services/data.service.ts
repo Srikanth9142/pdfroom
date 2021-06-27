@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { v4 as uuid4 } from 'uuid';
+import { FollowingPerson } from '../models/followingPerson';
 
 @Injectable({
   providedIn: 'root'
@@ -92,6 +93,7 @@ export class DataService {
       );
       
   }
+  
   viewShelfBooks():Observable<ShelfBooks[]>{
     var token = localStorage.getItem('id_token');
     token = token.substring(1,token.length-1);
@@ -347,6 +349,17 @@ export class DataService {
     }
 
     /**
+     * @description Method which filters the books based on the book name
+     * @param bookName - Search key entered by the user
+     */
+    searchBooks(bookName: string){
+      console.log("service bookName: "+bookName);
+      return this.http.get<Book[]>(`${environment.serverurl}/shelf/filterbooks/`+bookName).pipe(
+        map(a=>a.map(t=>{return new Book(t['bookid'],t['name'],t['fileUrl'],t['coverphoto'],t['author'],t['category'])})) 
+      )
+    }
+
+    /**
      * @description Method which get UserProfile based on userName
      * @param userName - user name of the user for which user to be fetched
      */
@@ -378,6 +391,60 @@ export class DataService {
           map(a=>a.map(t=>{return new LikedBooks(t.bookid)}))
         );
         
+    }
+
+    /**
+     * @description Method to start follow someone
+     * @param userName - username of the person whom you want to follow
+     */
+    followUser(userName:string){
+      var token = localStorage.getItem('id_token');
+      token = token.substring(1,token.length-1);
+      var data={
+        id_token:token,
+        user_name:userName
+      }
+      return this.http.post(`${environment.serverurl}/shelf/follow`,data,
+      {
+        headers: new HttpHeaders({
+          "Content-Type": 'application/JSON'
+       })
+      }).pipe(catchError(this.processHTTPMsgService.handleError));
+
+    }
+
+    /**
+     * @description Method to get list of people user is following
+     */
+    viewFollowersList():Observable<FollowingPerson[]>{
+      var token = localStorage.getItem('id_token');
+      token = token.substring(1,token.length-1);
+      return this.http.get<FollowingPerson[]>(
+        `${environment.serverurl}/shelf/viewfollowing/`+token).pipe(
+          map(a=>a.map(t=>{return new FollowingPerson(t['person_name'], t['person_profile_picture'], t['person_points'], t['time'])})
+          ), catchError(this.processHTTPMsgService.handleError)
+        );
+
+    }
+
+    /**
+     * @description Method to unfollow someone
+     * @param userName - username of the person whom you want to follow
+     */
+    unFollowUser(userName:string){
+      var token = localStorage.getItem('id_token');
+      token = token.substring(1,token.length-1);
+      var data={
+        id_token:token,
+        user_name:userName
+      }
+      return this.http.post(`${environment.serverurl}/shelf/unfollow`,data,
+      {
+        headers: new HttpHeaders({
+          "Content-Type": 'application/JSON'
+       })
+      }).pipe(catchError(this.processHTTPMsgService.handleError));
+
     }
 
 }
