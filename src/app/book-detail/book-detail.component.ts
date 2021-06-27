@@ -30,7 +30,7 @@ export class BookDetailComponent implements OnInit {
   ngOnInit() {
 
     this.route.paramMap.subscribe(paramMap=>{
-      this.bookId = paramMap.get('bookId');
+      this.bookId = parseInt(paramMap.get('bookId'));
       console.log("username:"+this.bookId);
       this.reload();
     });
